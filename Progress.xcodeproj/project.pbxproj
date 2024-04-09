@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		112351082BC4A57200C2F9CC /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112351072BC4A57200C2F9CC /* ViewModel.swift */; };
 		118920E22BBD2EBA001A3ECD /* ProgressApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118920E12BBD2EBA001A3ECD /* ProgressApp.swift */; };
 		118920E42BBD2EBA001A3ECD /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118920E32BBD2EBA001A3ECD /* Persistence.swift */; };
 		118920E72BBD2EBA001A3ECD /* Progress.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 118920E52BBD2EBA001A3ECD /* Progress.xcdatamodeld */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		112351072BC4A57200C2F9CC /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		118920DE2BBD2EBA001A3ECD /* Progress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Progress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		118920E12BBD2EBA001A3ECD /* ProgressApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressApp.swift; sourceTree = "<group>"; };
 		118920E32BBD2EBA001A3ECD /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				118920EC2BBD2EBF001A3ECD /* Progress.entitlements */,
 				118920E52BBD2EBA001A3ECD /* Progress.xcdatamodeld */,
 				118920ED2BBD2EBF001A3ECD /* Preview Content */,
+				112351072BC4A57200C2F9CC /* ViewModel.swift */,
 			);
 			path = Progress;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				112351082BC4A57200C2F9CC /* ViewModel.swift in Sources */,
 				118920E72BBD2EBA001A3ECD /* Progress.xcdatamodeld in Sources */,
 				118920E22BBD2EBA001A3ECD /* ProgressApp.swift in Sources */,
 				118920E92BBD2EBA001A3ECD /* ContentView.swift in Sources */,

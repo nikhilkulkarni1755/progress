@@ -19,6 +19,13 @@ import SwiftUI
 //    let location: String
 //}
 
+struct Activity: Codable, Hashable {
+    let name: String
+    let id: Int
+//    let isStreak: Bool
+    let streakCount: Int
+}
+
 struct URLImage: View {
     let urlString: String
     

@@ -18,6 +18,8 @@
 		118920F92BBD2EBF001A3ECD /* ProgressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118920F82BBD2EBF001A3ECD /* ProgressTests.swift */; };
 		118921032BBD2EBF001A3ECD /* ProgressUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118921022BBD2EBF001A3ECD /* ProgressUITests.swift */; };
 		118921052BBD2EBF001A3ECD /* ProgressUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118921042BBD2EBF001A3ECD /* ProgressUITestsLaunchTests.swift */; };
+		11C291322BF899E30010472F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 11C291312BF899E30010472F /* FirebaseAuth */; };
+		11C291352BF89A910010472F /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C291342BF89A910010472F /* AuthenticationView.swift */; };
 		11CD5B2B2BF88F7400A02F05 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11CD5B2A2BF88F7200A02F05 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +55,7 @@
 		118920FE2BBD2EBF001A3ECD /* ProgressUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProgressUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		118921022BBD2EBF001A3ECD /* ProgressUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressUITests.swift; sourceTree = "<group>"; };
 		118921042BBD2EBF001A3ECD /* ProgressUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		11C291342BF89A910010472F /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		11CD5B2A2BF88F7200A02F05 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,6 +65,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				110CBD7B2BF8904400BC6814 /* FirebaseAnalytics in Frameworks */,
+				11C291322BF899E30010472F /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +93,7 @@
 				118920F72BBD2EBF001A3ECD /* ProgressTests */,
 				118921012BBD2EBF001A3ECD /* ProgressUITests */,
 				118920DF2BBD2EBA001A3ECD /* Products */,
+				11C291302BF899E30010472F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,6 +114,7 @@
 				11CD5B2A2BF88F7200A02F05 /* GoogleService-Info.plist */,
 				118920E32BBD2EBA001A3ECD /* Persistence.swift */,
 				118920E82BBD2EBA001A3ECD /* ContentView.swift */,
+				11C291332BF89A5B0010472F /* Authentication */,
 				118920EA2BBD2EBF001A3ECD /* Assets.xcassets */,
 				118920EC2BBD2EBF001A3ECD /* Progress.entitlements */,
 				118920E52BBD2EBA001A3ECD /* Progress.xcdatamodeld */,
@@ -143,6 +149,21 @@
 			path = ProgressUITests;
 			sourceTree = "<group>";
 		};
+		11C291302BF899E30010472F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		11C291332BF89A5B0010472F /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				11C291342BF89A910010472F /* AuthenticationView.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -161,6 +182,7 @@
 			name = Progress;
 			packageProductDependencies = (
 				110CBD7A2BF8904400BC6814 /* FirebaseAnalytics */,
+				11C291312BF899E30010472F /* FirebaseAuth */,
 			);
 			productName = Progress;
 			productReference = 118920DE2BBD2EBA001A3ECD /* Progress.app */;
@@ -282,6 +304,7 @@
 			files = (
 				112351082BC4A57200C2F9CC /* ViewModel.swift in Sources */,
 				118920E72BBD2EBA001A3ECD /* Progress.xcdatamodeld in Sources */,
+				11C291352BF89A910010472F /* AuthenticationView.swift in Sources */,
 				118920E22BBD2EBA001A3ECD /* ProgressApp.swift in Sources */,
 				118920E92BBD2EBA001A3ECD /* ContentView.swift in Sources */,
 				118920E42BBD2EBA001A3ECD /* Persistence.swift in Sources */,
@@ -650,6 +673,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 110CBD792BF8904400BC6814 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
+		};
+		11C291312BF899E30010472F /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 110CBD792BF8904400BC6814 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 

@@ -16,17 +16,24 @@ struct AuthenticationView: View {
                 Text("Sign In with Email")
                     .font(.headline)
                     .foregroundColor(.white)
+                    .frame(height: 55)
+                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
                     .background(Color.blue)
                     .cornerRadius(10)
-                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
             }
+            
+            Spacer()
         }
         .navigationTitle("Sign In")
+        .padding()
     }
 }
 
-#Preview {
-    NavigationStack {
-        AuthenticationView()
+//#Preview {
+struct AuthenticationView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationStack {
+            AuthenticationView()
+        }
     }
 }

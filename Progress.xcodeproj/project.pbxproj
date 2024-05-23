@@ -10,6 +10,7 @@
 		110270EB2BFC186900DF164E /* SignInEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110270EA2BFC186900DF164E /* SignInEmailView.swift */; };
 		110CBD7B2BF8904400BC6814 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 110CBD7A2BF8904400BC6814 /* FirebaseAnalytics */; };
 		112351082BC4A57200C2F9CC /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112351072BC4A57200C2F9CC /* ViewModel.swift */; };
+		11825E082BFEDCF200BB0C8F /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11825E072BFEDCF200BB0C8F /* AuthenticationManager.swift */; };
 		118920E22BBD2EBA001A3ECD /* ProgressApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118920E12BBD2EBA001A3ECD /* ProgressApp.swift */; };
 		118920E42BBD2EBA001A3ECD /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118920E32BBD2EBA001A3ECD /* Persistence.swift */; };
 		118920E72BBD2EBA001A3ECD /* Progress.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 118920E52BBD2EBA001A3ECD /* Progress.xcdatamodeld */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		110270EA2BFC186900DF164E /* SignInEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailView.swift; sourceTree = "<group>"; };
 		112351072BC4A57200C2F9CC /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		11825E072BFEDCF200BB0C8F /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		118920DE2BBD2EBA001A3ECD /* Progress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Progress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		118920E12BBD2EBA001A3ECD /* ProgressApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressApp.swift; sourceTree = "<group>"; };
 		118920E32BBD2EBA001A3ECD /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			children = (
 				11C291342BF89A910010472F /* AuthenticationView.swift */,
 				110270EA2BFC186900DF164E /* SignInEmailView.swift */,
+				11825E072BFEDCF200BB0C8F /* AuthenticationManager.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				112351082BC4A57200C2F9CC /* ViewModel.swift in Sources */,
+				11825E082BFEDCF200BB0C8F /* AuthenticationManager.swift in Sources */,
 				118920E72BBD2EBA001A3ECD /* Progress.xcdatamodeld in Sources */,
 				11C291352BF89A910010472F /* AuthenticationView.swift in Sources */,
 				118920E22BBD2EBA001A3ECD /* ProgressApp.swift in Sources */,

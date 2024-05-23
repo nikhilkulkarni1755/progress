@@ -7,9 +7,31 @@
 
 import SwiftUI
 
+@MainActor
 final class SignInEmailViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
+    
+    func signIn() {
+        
+        //validation
+        guard !email.isEmpty, !password.isEmpty else {
+            print("No email or password found")
+            return
+        }
+        
+        Task {
+            do {
+                let returnedUserData = try await AuthenticationManager.shared.createUser(email: email, password: password)
+                print("Success!")
+                print(returnedUserData)
+            } catch {
+                print("Error: \(error)")
+            }
+        }
+        
+        
+    }
 }
 
 struct SignInEmailView: View {
@@ -28,7 +50,7 @@ struct SignInEmailView: View {
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
             Button {
-                
+                viewModel.signIn()
             } label: {
                 Text("Sign In")
                     .font(.headline)
@@ -43,9 +65,7 @@ struct SignInEmailView: View {
         }
         .padding()
         .navigationTitle("Sign in with Email")
-        
-        
-        
+   
     }
 }
 

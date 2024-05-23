@@ -39,5 +39,20 @@ final class AuthenticationManager {
         )
     }
     
+    // this function is not going to server, hence no async.
+    // this should use localstorage to find the authenticated user
+    
+    func getAuthenticatedUser() throws -> AuthDataResultModel {
+        guard let user = Auth.auth().currentUser else {
+            throw URLError(.badServerResponse)
+        }
+        
+        return AuthDataResultModel(user: user)
+    }
+    
+    func signOut() throws {
+        try Auth.auth().signOut()
+    }
+    
     
 }

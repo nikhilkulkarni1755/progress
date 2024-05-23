@@ -13,7 +13,18 @@ struct AuthenticationView: View {
             NavigationLink {
               SignInEmailView()
             } label: {
-                Text("Sign In with Email")
+                Text("Create Account with Email")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(height: 55)
+                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                    .background(Color.blue)
+                    .cornerRadius(10)
+            }
+            NavigationLink {
+              SignInGoogleView()
+            } label: {
+                Text("Sign In with Google")
                     .font(.headline)
                     .foregroundColor(.white)
                     .frame(height: 55)

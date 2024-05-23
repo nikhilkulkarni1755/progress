@@ -52,7 +52,7 @@ struct SignInEmailView: View {
             Button {
                 viewModel.signIn()
             } label: {
-                Text("Sign In")
+                Text("Create Account")
                     .font(.headline)
                     .foregroundColor(.white)
                     .frame(height: 55)
@@ -64,7 +64,7 @@ struct SignInEmailView: View {
             Spacer()
         }
         .padding()
-        .navigationTitle("Sign in with Email")
+        .navigationTitle("Create Account")
    
     }
 }

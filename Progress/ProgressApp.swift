@@ -19,9 +19,10 @@ struct ProgressApp: App {
 
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                AuthenticationView()
-            }
+            RootView()
+//            NavigationStack {
+//                AuthenticationView()
+//            }
 //            ContentView()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }

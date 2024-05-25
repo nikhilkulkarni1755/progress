@@ -12,12 +12,27 @@ struct AuthDataResultModel {
     let uid: String
     let email: String?
     let photoUrl: String?
+//    let isPremium: Bool
+//    let isPremium: Bool
+//    let progress: Int?
+//    let dateCreated: Date?
+    
+//    let email: String?
 //    let photoUrl: String?
+//    let photoUrl: String?
+    
+    /*
+     let userId: String
+     let isPremium: Bool
+     let progress: Int?
+     let dateCreated: Date?
+     */
     
     init(user:User) {
         self.uid = user.uid
         self.email = user.email
         self.photoUrl = user.photoURL?.absoluteString
+//        self.isPremium = user.isPremium
     }
 }
 

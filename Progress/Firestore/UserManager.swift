@@ -85,6 +85,10 @@ final class UserManager {
         try userDocument(userId: user.userId).setData(from: user, merge: true, encoder: encoder)
     }
     
+    func updateProgress(user: DBUser) async throws {
+        try userDocument(userId: user.userId).setData(from: user, merge: true, encoder: encoder)
+    }
+    
 //    func getUser(userId: String) async throws -> DBUser {
 ////        let snapshot = try await Firestore.firestore().collection("users").document(userId).getDocument()
 //        let snapshot = try await userDocument(userId: userId).getDocument()

@@ -26,6 +26,16 @@ final class ProfileViewModel: ObservableObject {
             self.user = try await UserManager.shared.getUser(userId: user.userId)
         }
     }
+    
+    func toggleProgress() {
+        guard let user else { return }
+        let currentProgress = user.progress ?? 0
+        let updatedUser = DBUser(userId: user.userId, isPremium: user.isPremium, email: user.email, progress: currentProgress + 1, dateCreated: user.dateCreated)
+        Task {
+            try await UserManager.shared.updateProgress(user: updatedUser)
+            self.user = try await UserManager.shared.getUser(userId: user.userId)
+        }
+    }
 }
 
 struct ProfileView: View {
@@ -35,27 +45,36 @@ struct ProfileView: View {
     
     var body: some View {
         List {
-            if let userId = viewModel.user?.userId {
-                Text("User Id: \(userId)")
-
-                if let email = viewModel.user?.email {
-                    Text("Email: \(email)")
-                }
-                if let progress = viewModel.user?.progress {
-                    Text("Progress: \(progress)")
-                }
-                if let dateCreated = viewModel.user?.dateCreated {
-                    Text("Date Created: \(String(describing: dateCreated))")
-                }
-                if let isPremium = viewModel.user?.isPremium {
-                    Text("Is Premium: \(String(describing: isPremium))")
-                }
-                Button {
-                    viewModel.togglePremiumStatus()
-                } label: {
-                    Text("Change Premium Status")
-                }
+            if let progress = viewModel.user?.progress {
+                Text("Progress: \(progress)")
             }
+            
+            Text("Did you complete the activity today?")
+            Button {
+                viewModel.toggleProgress()
+            } label: {
+                Text("✅✅✅")
+            }
+//            Button {
+//                viewModel.togglePremiumStatus()
+//            } label: {
+//                Text("Change Premium Status")
+//            }
+//            if let userId = viewModel.user?.userId {
+//                Text("User Id: \(userId)")
+//
+//                if let email = viewModel.user?.email {
+//                    Text("Email: \(email)")
+//                }
+//                
+//                if let dateCreated = viewModel.user?.dateCreated {
+//                    Text("Date Created: \(String(describing: dateCreated))")
+//                }
+//                if let isPremium = viewModel.user?.isPremium {
+//                    Text("Is Premium: \(String(describing: isPremium))")
+//                }
+                
+//            }
             
             
         }.task {

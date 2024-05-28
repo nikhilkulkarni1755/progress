@@ -71,6 +71,12 @@ struct ProfileView: View {
             } label: {
                 Text("✅✅✅")
             }
+            
+            if let is_premium = viewModel.user?.isPremium {
+                if is_premium {
+                    Text("We can add two more activities here!")
+                }
+            }
 //            Button {
 //                viewModel.togglePremiumStatus()
 //            } label: {

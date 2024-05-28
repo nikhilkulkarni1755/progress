@@ -12,6 +12,13 @@ final class ProfileViewModel: ObservableObject {
     
     @Published private(set) var user: DBUser? = nil
     
+//    @State var selectedFlavor: Flavor = .chocolate
+    
+//    enum Flavor: String, CaseIterable, Identifiable {
+//        case chocolate, vanilla, strawberry
+//        var id: Self { self }
+//    }
+    
     func loadCurrentUser() async throws {
         let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
         self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
@@ -35,6 +42,15 @@ final class ProfileViewModel: ObservableObject {
             try await UserManager.shared.updateProgress(user: updatedUser)
             self.user = try await UserManager.shared.getUser(userId: user.userId)
         }
+    }
+    
+    func getActivities() {
+        guard let user else { return }
+        Task {
+            try await UserManager.shared.addMainActivity(userId:user.userId, name: "quidditch")
+//            self.user = try await UserManager.shared.getMainActivity(userId: user.userId)
+        }
+//        try await UserManager.shared.getUser(userId: user.userId)
     }
 }
 
@@ -75,10 +91,16 @@ struct ProfileView: View {
 //                }
                 
 //            }
+//            Picker("Activities", selection: $viewModel.selectedFlavor) {
+//                Text("Chocolate").tag(ProfileViewModel.Flavor.chocolate)
+//                Text("Vanilla").tag(ProfileViewModel.Flavor.vanilla)
+//                Text("Strawberry").tag(ProfileViewModel.Flavor.strawberry)
+//            }
             
             
         }.task {
             try? await viewModel.loadCurrentUser()
+            try? await viewModel.getActivities()
 //            print("done loading current user")
 //            print(String(describing: viewModel.user?.userId))
         }

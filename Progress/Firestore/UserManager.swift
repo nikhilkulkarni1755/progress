@@ -9,12 +9,22 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+struct Activity {
+//    let activityNumber: Int?
+    let dateLastUpdated: Date?
+    let name: String?
+    let progress: Int?
+}
+
 struct DBUser: Codable {
+    
     let userId: String
     let isPremium: Bool?
     let email: String?
     let progress: Int?
     let dateCreated: Date?
+//    let activities: [Activity]?
+    
     
 //    init(auth: AuthDataResultModel) {
 //        self.userId = auth.uid
@@ -31,10 +41,26 @@ final class UserManager {
     private init() {}
     
     private let userCollection = Firestore.firestore().collection("users")
-//    
+
     private func userDocument(userId: String) -> DocumentReference {
         userCollection.document(userId)
     }
+    
+    private func activitiesDocument(userId: String) -> CollectionReference {
+        userCollection.document(userId).collection("activities")
+    }
+    
+//    private func getActivities() {
+//        private let activityCollection = Firestore.firestore().collection("users").getDocuments(userId).collection("")
+//    }
+//    func getActivities(user: DBUser) async throws {
+//        let results: [Activity] = [
+//            activitiesDocument(user.userId).document("activity_1"),
+//            activitiesDocument(user.userId).document("activity_2"),
+//            activitiesDocument(user.userId).document("activity_3"),
+//        ]
+//        
+//    }
     
     private let encoder: Firestore.Encoder = {
         let encoder = Firestore.Encoder()
@@ -88,6 +114,24 @@ final class UserManager {
     func updateProgress(user: DBUser) async throws {
         try userDocument(userId: user.userId).setData(from: user, merge: true, encoder: encoder)
     }
+    
+    func addMainActivity(userId: String, name: String) async throws {
+        let name = "coding"
+        let data: [String:Any] = [
+            "name": name,
+            "date_last_updated": Timestamp(),
+            "progress": 0
+        ]
+        try await userDocument(userId: userId).collection("activities").document("activity_1").setData(data, merge: false)
+    }
+    
+    func getMainActivity(userId: String) async throws {
+        
+    }
+    
+//    func getActivities(user: DBUser) async throws {
+//        try userDocument(userId: user.userId).setData(from: user, merge: true, encoder: encoder)
+//    }
     
 //    func getUser(userId: String) async throws -> DBUser {
 ////        let snapshot = try await Firestore.firestore().collection("users").document(userId).getDocument()

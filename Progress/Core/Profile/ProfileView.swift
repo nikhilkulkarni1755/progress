@@ -61,20 +61,49 @@ struct ProfileView: View {
     
     var body: some View {
         List {
-            if let progress = viewModel.user?.progress {
-                Text("Progress: \(progress)")
+            Section(header: Text("**Activity 1**")) {
+                if let progress = viewModel.user?.progress {
+                    Text("Progress: \(progress)")
+                }
+                
+                Text("Did you complete the activity today?")
+                Button {
+                    viewModel.toggleProgress()
+                } label: {
+                    Text("Complete ✅")
+                }
             }
-            
-            Text("Did you complete the activity today?")
-            Button {
-                viewModel.toggleProgress()
-            } label: {
-                Text("✅✅✅")
-            }
-            
             if let is_premium = viewModel.user?.isPremium {
                 if is_premium {
-                    Text("We can add two more activities here!")
+//                    ideally should have name of activity here
+                    Section(header: Text("**Activity 2**")) {
+                        Text("Progress: 4")
+                        Text("Did you complete the activity today?")
+                        Button {
+                            viewModel.toggleProgress()
+                        } label: {
+                            Text("Complete ✅")
+                        }
+                    }
+                    Section(header: Text("**Activity 3**")) {
+                        Text("Progress: 6")
+                        Text("Did you complete the activity today?")
+                        Button {
+                            viewModel.toggleProgress()
+                        } label: {
+                            Text("Complete ✅")
+                        }
+                    }
+                    
+                }
+                else {
+                    Section(header: Text("For more Activities")) {
+                        Button {
+                            
+                        } label: {
+                            Text("Get Premium")
+                        }
+                    }
                 }
             }
 //            Button {
@@ -97,11 +126,9 @@ struct ProfileView: View {
 //                }
                 
 //            }
-//            Picker("Activities", selection: $viewModel.selectedFlavor) {
-//                Text("Chocolate").tag(ProfileViewModel.Flavor.chocolate)
-//                Text("Vanilla").tag(ProfileViewModel.Flavor.vanilla)
-//                Text("Strawberry").tag(ProfileViewModel.Flavor.strawberry)
-//            }
+            
+            
+            
             
             
         }.task {
@@ -121,6 +148,14 @@ struct ProfileView: View {
                     }
                 }
             }
+        
+//        Picker("Activities", selection: $viewModel.selectedFlavor) {
+//            Text("Chocolate").tag(ProfileViewModel.Flavor.chocolate)
+//            Text("Vanilla").tag(ProfileViewModel.Flavor.vanilla)
+//            Text("Strawberry").tag(ProfileViewModel.Flavor.strawberry)
+//        }.pickerStyle(.segmented)
+        
+        
     }
 }
 

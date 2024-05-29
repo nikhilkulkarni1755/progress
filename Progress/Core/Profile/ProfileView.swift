@@ -26,42 +26,63 @@ final class ProfileViewModel: ObservableObject {
         self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
     }
     
-    func togglePremiumStatus() {
+//    func togglePremiumStatus() {
+//        guard let user else { return }
+//        let currentPremium = user.isPremium ?? false
+//        let updatedUser = DBUser(userId: user.userId, isPremium: !currentPremium, email: user.email, dateCreated: user.dateCreated)
+//        Task {
+//            try await UserManager.shared.updateUserPremiumStatus(user: updatedUser)
+//            self.user = try await UserManager.shared.getUser(userId: user.userId)
+//        }
+//    }
+    
+    func toggleProgress(id: String) async throws {
         guard let user else { return }
-        let currentPremium = user.isPremium ?? false
-        let updatedUser = DBUser(userId: user.userId, isPremium: !currentPremium, email: user.email, progress: user.progress, dateCreated: user.dateCreated)
-        Task {
-            try await UserManager.shared.updateUserPremiumStatus(user: updatedUser)
-            self.user = try await UserManager.shared.getUser(userId: user.userId)
+        guard let mainActivity else { return }
+//        guard let premiumActivities else { return }
+        
+        if id == "activity_1" {
+            let currentProgress = mainActivity.progress ?? 0
+            let updatedActivity = Activity(dateLastUpdated: mainActivity.dateLastUpdated, name: mainActivity.name, progress: currentProgress + 1)
+            Task {
+                try await UserManager.shared.updateProgress(user: user.userId, activity: updatedActivity, id: id)
+                self.mainActivity = try await UserManager.shared.getMainActivity(userId: user.userId)
+                self.user = try await UserManager.shared.getUser(userId: user.userId)
+            }
         }
+        else if id == "activity_2" {
+            
+        }
+        else {
+            // activity_3
+        }
+        
+//        let currentProgress = user.progress ?? 0
+//        let updatedUser = DBUser(userId: user.userId, isPremium: user.isPremium, email: user.email, progress: currentProgress + 1, dateCreated: user.dateCreated)
+//        Task {
+//            try await UserManager.shared.updateProgress(user: updatedUser)
+        
+//        }
     }
     
-    func toggleProgress() {
-        guard let user else { return }
-        let currentProgress = user.progress ?? 0
-        let updatedUser = DBUser(userId: user.userId, isPremium: user.isPremium, email: user.email, progress: currentProgress + 1, dateCreated: user.dateCreated)
-        Task {
-            try await UserManager.shared.updateProgress(user: updatedUser)
-            self.user = try await UserManager.shared.getUser(userId: user.userId)
-        }
-    }
-    
-    func getActivities() {
+    func getActivities() async throws {
         guard let user else { return }
         Task {
-            try await UserManager.shared.addMainActivity(userId:user.userId, name: "quidditch")
+//            try await UserManager.shared.addMainActivity(userId:user.userId, name: "quidditch")
             self.mainActivity = try await UserManager.shared.getMainActivity(userId: user.userId)
         }
 //        try await UserManager.shared.getUser(userId: user.userId)
     }
     
-    func getPremiumActivities() {
+    func getPremiumActivities() async throws {
         guard let user else { return }
         Task {
 //            try await UserManager.shared.addMainActivity(userId:user.userId, name: "quidditch")
             self.premiumActivities = try await UserManager.shared.getPremiumActivities(userId: user.userId)
         }
     }
+    
+    
 }
 
 struct ProfileView: View {
@@ -73,13 +94,15 @@ struct ProfileView: View {
         List {
             if let mainActivity = viewModel.mainActivity?.name {
                 Section(header: Text("**\(mainActivity)**")) {
-                    if let progress = viewModel.user?.progress {
+                    if let progress = viewModel.mainActivity?.progress {
                         Text("Progress: \(progress)")
                     }
                     
                     Text("Did you complete the activity today?")
                     Button {
-                        viewModel.toggleProgress()
+                        Task {
+                            try await viewModel.toggleProgress(id: "activity_1")
+                        }
                     } label: {
                         Text("Complete ✅")
                     }
@@ -87,30 +110,7 @@ struct ProfileView: View {
                 if let isPremium = viewModel.user?.isPremium {
                     if isPremium {
     //                    ideally should have name of activity here
-                        if let act1 = viewModel.premiumActivities?[0].name, let progress = viewModel.premiumActivities?[0].progress {
-                            Section(header: Text("**\(act1)**")) {
-                                Text("Progress: \(progress)")
-                                Text("Did you complete the activity today?")
-                                Button {
-                                    viewModel.toggleProgress()
-                                } label: {
-                                    Text("Complete ✅")
-                                }
-                            }
-                            
-                        }
-                        if let act2 = viewModel.premiumActivities?[1].name, let progress = viewModel.premiumActivities?[1].progress {
-                            Section(header: Text("**\(act2)**")) {
-                                Text("Progress: \(progress)")
-                                Text("Did you complete the activity today?")
-                                Button {
-                                    viewModel.toggleProgress()
-                                } label: {
-                                    Text("Complete ✅")
-                                }
-                        }
                         
-                        }
                         
                     }
                     else {
@@ -153,11 +153,8 @@ struct ProfileView: View {
         }.task {
             try? await viewModel.loadCurrentUser()
             try? await viewModel.getActivities()
-            if let isPremium = viewModel.user?.isPremium {
-                if isPremium {
-                    try? await viewModel.getPremiumActivities()
-                }
-            }
+//            try? await viewModel.getPremiumActivities()
+
 //            print("done loading current user")
 //            print(String(describing: viewModel.user?.userId))
         }

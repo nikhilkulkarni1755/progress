@@ -21,7 +21,7 @@ struct DBUser: Codable {
     let userId: String
     let isPremium: Bool?
     let email: String?
-    let progress: Int?
+//    let progress: Int?
     let dateCreated: Date?
 //    let activities: [Activity]?
     
@@ -111,9 +111,9 @@ final class UserManager {
         try userDocument(userId: user.userId).setData(from: user, merge: true, encoder: encoder)
     }
     
-    func updateProgress(user: DBUser) async throws {
-        try userDocument(userId: user.userId).setData(from: user, merge: true, encoder: encoder)
-    }
+//    func updateProgress(user: DBUser) async throws {
+//        try userDocument(userId: user.userId).setData(from: user, merge: true, encoder: encoder)
+//    }
     
     func addMainActivity(userId: String, name: String) async throws {
         let name = "coding"
@@ -138,6 +138,12 @@ final class UserManager {
 //        result.append(/*activity_2*/)
 //        result.append(activity_3)
         return result
+    }
+    
+    func updateProgress(user: String, activity: Activity, id: String) async throws {
+//        try userDocument(userId: user.userId).setData(from: user, merge: true, encoder: encoder)
+//        try userDocument(userId: user.userId).collection("activities").document(id).setData(activity, merge: false) //(id).setData()
+        try userDocument(userId: user).collection("activities").document(id).setData(from: activity, merge: true, encoder: encoder)
     }
     
 //    func getActivities(user: DBUser) async throws {

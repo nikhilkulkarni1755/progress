@@ -6,6 +6,7 @@ Followed this [tutorial playlist](https://www.youtube.com/playlist?list=PLwvDm4V
 
 Schema as of May 28
 
+```
 user {
     id
     email
@@ -17,7 +18,12 @@ user {
         dateLastUpdated
     }
 }
+```
+![Followed Tutorial with results](./assets/progress.png)
 
+Followed this [tutorial](https://youtu.be/CimY_Sr3gWw?si=hKqj16K6xAqJ42tz) to get API calls to work
+
+```
 App Progress {
 
     class Activity {
@@ -29,7 +35,7 @@ App Progress {
         }
     }
 }
+```
 
-Followed this [tutorial](https://youtu.be/CimY_Sr3gWw?si=hKqj16K6xAqJ42tz) to get API calls to work
 
-![Followed Tutorial with results](./assets/progress.png)
+

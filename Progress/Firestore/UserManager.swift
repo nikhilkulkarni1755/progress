@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-struct Activity {
+struct Activity: Codable {
 //    let activityNumber: Int?
     let dateLastUpdated: Date?
     let name: String?
@@ -125,8 +125,19 @@ final class UserManager {
         try await userDocument(userId: userId).collection("activities").document("activity_1").setData(data, merge: false)
     }
     
-    func getMainActivity(userId: String) async throws {
+    func getMainActivity(userId: String) async throws -> Activity {
+        try await userDocument(userId: userId).collection("activities").document("activity_1").getDocument(as: Activity.self, decoder: decoder)
+    }
+    
+    func getPremiumActivities(userId: String) async throws -> [Activity] {
+        var result: [Activity] = []
         
+        result.append(try await userDocument(userId: userId).collection("activities").document("activity_2").getDocument(as: Activity.self, decoder: decoder))
+        result.append(try await userDocument(userId: userId).collection("activities").document("activity_3").getDocument(as: Activity.self, decoder: decoder))
+        
+//        result.append(/*activity_2*/)
+//        result.append(activity_3)
+        return result
     }
     
 //    func getActivities(user: DBUser) async throws {

@@ -11,6 +11,8 @@ import SwiftUI
 final class ProfileViewModel: ObservableObject {
     
     @Published private(set) var user: DBUser? = nil
+    @Published private(set) var mainActivity: Activity? = nil
+    @Published private(set) var premiumActivities: [Activity]? = []
     
 //    @State var selectedFlavor: Flavor = .chocolate
     
@@ -48,9 +50,17 @@ final class ProfileViewModel: ObservableObject {
         guard let user else { return }
         Task {
             try await UserManager.shared.addMainActivity(userId:user.userId, name: "quidditch")
-//            self.user = try await UserManager.shared.getMainActivity(userId: user.userId)
+            self.mainActivity = try await UserManager.shared.getMainActivity(userId: user.userId)
         }
 //        try await UserManager.shared.getUser(userId: user.userId)
+    }
+    
+    func getPremiumActivities() {
+        guard let user else { return }
+        Task {
+//            try await UserManager.shared.addMainActivity(userId:user.userId, name: "quidditch")
+            self.premiumActivities = try await UserManager.shared.getPremiumActivities(userId: user.userId)
+        }
     }
 }
 
@@ -61,51 +71,60 @@ struct ProfileView: View {
     
     var body: some View {
         List {
-            Section(header: Text("**Activity 1**")) {
-                if let progress = viewModel.user?.progress {
-                    Text("Progress: \(progress)")
-                }
-                
-                Text("Did you complete the activity today?")
-                Button {
-                    viewModel.toggleProgress()
-                } label: {
-                    Text("Complete ✅")
-                }
-            }
-            if let is_premium = viewModel.user?.isPremium {
-                if is_premium {
-//                    ideally should have name of activity here
-                    Section(header: Text("**Activity 2**")) {
-                        Text("Progress: 4")
-                        Text("Did you complete the activity today?")
-                        Button {
-                            viewModel.toggleProgress()
-                        } label: {
-                            Text("Complete ✅")
-                        }
-                    }
-                    Section(header: Text("**Activity 3**")) {
-                        Text("Progress: 6")
-                        Text("Did you complete the activity today?")
-                        Button {
-                            viewModel.toggleProgress()
-                        } label: {
-                            Text("Complete ✅")
-                        }
+            if let mainActivity = viewModel.mainActivity?.name {
+                Section(header: Text("**\(mainActivity)**")) {
+                    if let progress = viewModel.user?.progress {
+                        Text("Progress: \(progress)")
                     }
                     
+                    Text("Did you complete the activity today?")
+                    Button {
+                        viewModel.toggleProgress()
+                    } label: {
+                        Text("Complete ✅")
+                    }
                 }
-                else {
-                    Section(header: Text("For more Activities")) {
-                        Button {
+                if let isPremium = viewModel.user?.isPremium {
+                    if isPremium {
+    //                    ideally should have name of activity here
+                        if let act1 = viewModel.premiumActivities?[0].name, let progress = viewModel.premiumActivities?[0].progress {
+                            Section(header: Text("**\(act1)**")) {
+                                Text("Progress: \(progress)")
+                                Text("Did you complete the activity today?")
+                                Button {
+                                    viewModel.toggleProgress()
+                                } label: {
+                                    Text("Complete ✅")
+                                }
+                            }
                             
-                        } label: {
-                            Text("Get Premium")
+                        }
+                        if let act2 = viewModel.premiumActivities?[1].name, let progress = viewModel.premiumActivities?[1].progress {
+                            Section(header: Text("**\(act2)**")) {
+                                Text("Progress: \(progress)")
+                                Text("Did you complete the activity today?")
+                                Button {
+                                    viewModel.toggleProgress()
+                                } label: {
+                                    Text("Complete ✅")
+                                }
+                        }
+                        
+                        }
+                        
+                    }
+                    else {
+                        Section(header: Text("For more Activities")) {
+                            Button {
+                                
+                            } label: {
+                                Text("Get Premium")
+                            }
                         }
                     }
                 }
             }
+            
 //            Button {
 //                viewModel.togglePremiumStatus()
 //            } label: {
@@ -134,6 +153,11 @@ struct ProfileView: View {
         }.task {
             try? await viewModel.loadCurrentUser()
             try? await viewModel.getActivities()
+            if let isPremium = viewModel.user?.isPremium {
+                if isPremium {
+                    try? await viewModel.getPremiumActivities()
+                }
+            }
 //            print("done loading current user")
 //            print(String(describing: viewModel.user?.userId))
         }

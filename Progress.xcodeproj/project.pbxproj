@@ -12,6 +12,7 @@
 		110B42592C01551500D3103B /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110B42582C01551500D3103B /* AuthenticationViewModel.swift */; };
 		110B425C2C01558300D3103B /* SignInEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110B425B2C01558300D3103B /* SignInEmailViewModel.swift */; };
 		110B425F2C0155F300D3103B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110B425E2C0155F300D3103B /* ProfileView.swift */; };
+		110BB8B72C09EBBE009A5087 /* EditActivitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110BB8B62C09EBBE009A5087 /* EditActivitiesView.swift */; };
 		110CBD7B2BF8904400BC6814 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 110CBD7A2BF8904400BC6814 /* FirebaseAnalytics */; };
 		112351082BC4A57200C2F9CC /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112351072BC4A57200C2F9CC /* ViewModel.swift */; };
 		11825E082BFEDCF200BB0C8F /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11825E072BFEDCF200BB0C8F /* AuthenticationManager.swift */; };
@@ -58,6 +59,7 @@
 		110B42582C01551500D3103B /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		110B425B2C01558300D3103B /* SignInEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailViewModel.swift; sourceTree = "<group>"; };
 		110B425E2C0155F300D3103B /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		110BB8B62C09EBBE009A5087 /* EditActivitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivitiesView.swift; sourceTree = "<group>"; };
 		112351072BC4A57200C2F9CC /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		11825E072BFEDCF200BB0C8F /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		11825E092BFF33B100BB0C8F /* SignInGoogleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleView.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				11825E0D2BFF649800BB0C8F /* SettingsView.swift */,
+				110BB8B62C09EBBE009A5087 /* EditActivitiesView.swift */,
 				110B42552C01547100D3103B /* SettingsViewModel.swift */,
 			);
 			path = Settings;
@@ -399,6 +402,7 @@
 				11825E0A2BFF33B100BB0C8F /* SignInGoogleView.swift in Sources */,
 				118920E92BBD2EBA001A3ECD /* ContentView.swift in Sources */,
 				118920E42BBD2EBA001A3ECD /* Persistence.swift in Sources */,
+				110BB8B72C09EBBE009A5087 /* EditActivitiesView.swift in Sources */,
 				110270EB2BFC186900DF164E /* SignInEmailView.swift in Sources */,
 				11825E0E2BFF649800BB0C8F /* SettingsView.swift in Sources */,
 				110B42562C01547100D3103B /* SettingsViewModel.swift in Sources */,
@@ -561,6 +565,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Progress/Preview Content\"";
+				DEVELOPMENT_TEAM = 288XB3DN8J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -597,6 +602,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Progress/Preview Content\"";
+				DEVELOPMENT_TEAM = 288XB3DN8J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;

@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 final class ProfileViewModel: ObservableObject {
-    
+    @Published var name: String = ""
     @Published private(set) var user: DBUser? = nil
     @Published private(set) var mainActivity: Activity? = nil
     @Published private(set) var premiumActivities: [Activity]? = []
@@ -27,6 +27,9 @@ final class ProfileViewModel: ObservableObject {
             result[1],
             result[2]
         ]
+//        if (self.premiumActivities? == nil) {
+//            print("empty premium")
+//        }
     }
 //    func togglePremiumStatus() {
 //        guard let user else { return }
@@ -127,6 +130,7 @@ struct ProfileView: View {
                     } label: {
                         Text("Complete ✅")
                     }
+                    TextField("Edit Activity?", text: $viewModel.name)
                     
                     // TextField("", text: name)
                 }
@@ -165,7 +169,15 @@ struct ProfileView: View {
                         }
                     }
                 }
+            } else {
+                Button {
+
+                } label: {
+                    Text("Get Premium")
+                }
             }
+            
+            
             
         }.task {
             

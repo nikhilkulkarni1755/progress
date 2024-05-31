@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+//import StoreKit
 
 struct Activity: Codable {
 //    let activityNumber: Int?
@@ -76,6 +77,18 @@ final class UserManager {
     
     func createNewUser(user: DBUser) async throws {
         try userDocument(userId: user.userId).setData(from: user, merge: false, encoder: encoder)
+    }
+    
+    func createNewActivities(user: DBUser) async throws {
+        let name = ""
+        let data: [String:Any] = [
+            "name": name,
+            "date_last_updated": Timestamp(),
+            "progress": 0
+        ]
+        try await userDocument(userId: user.userId).collection("activities").document("activity_1").setData(data, merge: false)
+        try await userDocument(userId: user.userId).collection("activities").document("activity_2").setData(data, merge: false)
+        try await userDocument(userId: user.userId).collection("activities").document("activity_3").setData(data, merge: false)
     }
     
     

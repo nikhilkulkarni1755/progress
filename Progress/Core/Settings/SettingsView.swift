@@ -14,27 +14,43 @@ struct SettingsView: View {
     
     var body: some View {
         List {
-            Button("Log Out") {
-                Task {
-                    do {
-                        try viewModel.logOut()
-                        showSignInView = true
-                    } catch {
-                        print(error)
+            
+            Section(header: Text("Activities")) {
+                NavigationLink {
+                    EditActivitiesView(showSignInView: $showSignInView)
+                } label: {
+                    Text("Edit Your Activities")
+                }
+            }
+            
+            Section(header: Text("Your Account")) {
+                Button("Log Out") {
+                    Task {
+                        do {
+                            try viewModel.logOut()
+                            showSignInView = true
+                        } catch {
+                            print(error)
+                        }
+                    }
+                }
+                
+                Button("Reset Password") {
+                    Task {
+                        do {
+                            try await viewModel.resetPassword()
+                            print("Password Reset!")
+                        } catch {
+                            print(error)
+                        }
                     }
                 }
             }
             
-            Button("Reset Password") {
-                Task {
-                    do {
-                        try await viewModel.resetPassword()
-                        print("Password Reset!")
-                    } catch {
-                        print(error)
-                    }
-                }
-            }
+            
+            
+//            Button("Edit Activities") {
+            
         }.navigationTitle("Settings")
     }
 }

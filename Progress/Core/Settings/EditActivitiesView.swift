@@ -9,6 +9,34 @@ import SwiftUI
 
 final class EditActivitiesViewModel: ObservableObject {
     @Published var activityName = ""
+    @Published var activity = ""
+    
+    @Published private(set) var user: DBUser? = nil
+    @Published private(set) var mainActivity: Activity? = nil
+    @Published private(set) var premiumActivities: [Activity]? = []
+    
+    func loadCurrentUser() async throws {
+        let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
+        self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
+    }
+    
+    func getAllActivities() async throws {
+        guard let user else { return }
+        let result: [Activity] = try await UserManager.shared.getAllActivities(userId: user.userId)
+        self.mainActivity = result[0]
+        self.premiumActivities = [
+            result[1],
+            result[2]
+        ]
+//        if (self.premiumActivities? == nil) {
+//            print("empty premium")
+//        }
+    }
+    
+    func editActivity() async throws {
+        guard let user else { return }
+        
+    }
 }
 
 struct EditActivitiesView: View {
@@ -38,50 +66,93 @@ struct EditActivitiesView: View {
                 .padding()
                 .background(Color.gray.opacity(0.4))
             
-            Button {
-                Task {
-                    
+            if let act1 = viewModel.mainActivity?.name {
+                Button {
+                    Task {
+                        viewModel.activity = "Activity 1"
+                    }
+                } label: {
+                    Text("Reset \(act1)")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(height: 55)
+                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                    .background(Color.blue)
+                    .cornerRadius(10)
                 }
-            } label: {
-                Text("Reset Activity 1")
-                .font(.headline)
-                .foregroundColor(.white)
-                .frame(height: 55)
-                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
-                .background(Color.blue)
-                .cornerRadius(10)
             }
             
-            Button {
-                Task {
-                    
+            if let activities = viewModel.premiumActivities, !activities.isEmpty, let act2 = activities[0].name, let act3 = activities[1].name {
+                if let isPremium = viewModel.user?.isPremium {
+                    if isPremium == true {
+                        Button {
+                            Task {
+                                viewModel.activity = "Activity 2"
+                            }
+                        } label: {
+                            Text("Reset \(act2)")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(height: 55)
+                            .frame(maxWidth: .infinity
+                            )
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                        }
+                        
+                        Button {
+                            Task {
+                                viewModel.activity = "Activity 3"
+                            }
+                        } label: {
+                            Text("Reset \(act3)")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(height: 55)
+                            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                        }
+                    }
                 }
-            } label: {
-                Text("Reset Activity 2")
-                .font(.headline)
-                .foregroundColor(.white)
-                .frame(height: 55)
-                .frame(maxWidth: .infinity
-                )
-                .background(Color.blue)
-                .cornerRadius(10)
             }
             
-            Button {
-                Task {
-                    
+//            if let confirm = viewModel.activity {
+//            if let confirm = viewModel.activity {
+            if viewModel.activity == "Activity 1" {
+                Button {
+                    Task {
+                        
+                    }
+                } label: {
+                    Text("Confirm reset Activity 1")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(height: 55)
+                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                        .background(Color.blue)
+                        .cornerRadius(10)
                 }
-            } label: {
-                Text("Reset Activity 3")
-                .font(.headline)
-                .foregroundColor(.white)
-                .frame(height: 55)
-                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
-                .background(Color.blue)
-                .cornerRadius(10)
             }
+            if let isPremium = viewModel.user?.isPremium {
+                if isPremium == true {
+                    if viewModel.activity == "Activity 2" {
+                        
+                    }
+                    if viewModel.activity == "Activity 3" {
+                        
+                    }
+                }
+            }
+//            }
             
             Spacer()
+            
+            
+        }
+        .task {
+            try? await viewModel.loadCurrentUser()
+            try? await viewModel.getAllActivities()
         }
         .padding()
         .navigationTitle("Reset Your Activities")

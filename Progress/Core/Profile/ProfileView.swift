@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 final class ProfileViewModel: ObservableObject {
-    @Published var name: String = ""
+//    @Published var name: String = ""
     @Published private(set) var user: DBUser? = nil
     @Published private(set) var mainActivity: Activity? = nil
     @Published private(set) var premiumActivities: [Activity]? = []
@@ -130,7 +130,7 @@ struct ProfileView: View {
                     } label: {
                         Text("Complete ✅")
                     }
-                    TextField("Edit Activity?", text: $viewModel.name)
+//                    TextField("Edit Activity?", text: $viewModel.name)
                     
                     // TextField("", text: name)
                 }

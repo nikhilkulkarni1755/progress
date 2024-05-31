@@ -91,6 +91,15 @@ final class UserManager {
         try await userDocument(userId: user.userId).collection("activities").document("activity_3").setData(data, merge: false)
     }
     
+    func editActivity(user: DBUser, activity: String, name: String) async throws {
+        let data: [String:Any] = [
+            "name": name,
+            "date_last_updated": Timestamp(),
+            "progress": 0
+        ]
+        try await userDocument(userId: user.userId).collection("activities").document(activity).setData(data, merge: false)
+    }
+    
     
     
 //    func createNewUser(user: DBUser) async throws {

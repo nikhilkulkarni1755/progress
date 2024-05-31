@@ -35,7 +35,18 @@ final class EditActivitiesViewModel: ObservableObject {
     
     func editActivity() async throws {
         guard let user else { return }
+        var act = ""
+        if activity == "Activity 1" {
+            act = "activity_1"
+        }
+        else if activity == "Activity 2" {
+            act = "activity_2"
+        }
+        else {
+            act = "activity_3"
+        }
         
+        try await UserManager.shared.editActivity(user: user, activity: act, name: activityName)
     }
 }
 
@@ -122,7 +133,7 @@ struct EditActivitiesView: View {
             if viewModel.activity == "Activity 1" {
                 Button {
                     Task {
-                        
+                        try await viewModel.editActivity()
                     }
                 } label: {
                     Text("Confirm reset Activity 1")
@@ -137,10 +148,34 @@ struct EditActivitiesView: View {
             if let isPremium = viewModel.user?.isPremium {
                 if isPremium == true {
                     if viewModel.activity == "Activity 2" {
-                        
+                        Button {
+                            Task {
+                                try await viewModel.editActivity()
+                            }
+                        } label: {
+                            Text("Confirm reset Activity 2")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .frame(height: 55)
+                                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                                .background(Color.blue)
+                                .cornerRadius(10)
+                        }
                     }
                     if viewModel.activity == "Activity 3" {
-                        
+                        Button {
+                            Task {
+                                try await viewModel.editActivity()
+                            }
+                        } label: {
+                            Text("Confirm reset Activity 3")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .frame(height: 55)
+                                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                                .background(Color.blue)
+                                .cornerRadius(10)
+                        }
                     }
                 }
             }

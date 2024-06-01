@@ -21,12 +21,18 @@ final class ProfileViewModel: ObservableObject {
     
     func getAllActivities() async throws {
         guard let user else { return }
-        let result: [Activity] = try await UserManager.shared.getAllActivities(userId: user.userId)
-        self.mainActivity = result[0]
+        
+        self.mainActivity = try await UserManager.shared.getMainActivity(userId: user.userId)
         self.premiumActivities = [
-            result[1],
-            result[2]
+            try await UserManager.shared.getSecondActivity(userId: user.userId),
+            try await UserManager.shared.getThirdActivity(userId: user.userId)
         ]
+//        let result: [Activity] = try await UserManager.shared.getAllActivities(userId: user.userId)
+//        self.mainActivity = result[0]
+//        self.premiumActivities = [
+//            result[1],
+//            result[2]
+//        ]
 //        if (self.premiumActivities? == nil) {
 //            print("empty premium")
 //        }
@@ -120,11 +126,26 @@ struct ProfileView: View {
                 Section(header: Text("**\(mainActivity)**")) {
                     if let progress = viewModel.mainActivity?.progress {
                         Text("Progress: \(progress)")
+//                        Text("Another text")
                     }
                     
-                    if let lastDate = viewModel.mainActivity?.dateLastUpdated {
-//                        if Date().timeIntervalSince(lastDate)
+                    if let dateAccessed = viewModel.mainActivity?.dateLastUpdated {
+//                        let currDate = Date()
+                        Text("Date last accessed: \(dateAccessed)")
                     }
+                    else {
+                        Text("No Date found")
+                    }
+                    
+//                    if let lastDate = viewModel.mainActivity?.dateLastUpdated {
+////                        if Date().timeIntervalSince(lastDate)
+////                        if lastDate != Date() {
+//                            // then show the buttons
+////                        Text("\(Date())")
+////                        Text("\(lastDate)")
+////                        Text("Hello world")
+////                        }
+//                    }
                     
                     Text("Did you complete \(mainActivity) today?")
                     Button {
@@ -139,11 +160,12 @@ struct ProfileView: View {
                     // TextField("", text: name)
                 }
             }
-            if let activities = viewModel.premiumActivities, !activities.isEmpty, let act2 = activities[0].name, let progress2 = activities[0].progress, let progress3 = activities[1].progress, let act3 = activities[1].name {
+            if let activities = viewModel.premiumActivities, !activities.isEmpty, let act2 = activities[0].name, let progress2 = activities[0].progress, let progress3 = activities[1].progress, let act3 = activities[1].name  {
                 if let isPremium = viewModel.user?.isPremium {
                     if isPremium == true {
                         Section(header: Text("\(act2)")) {
                             Text("Progress: \(progress2)")
+                            Text("date")
                             Text("Did you complete \(act2) today?")
                             Button {
                                 Task {

@@ -122,6 +122,10 @@ struct ProfileView: View {
                         Text("Progress: \(progress)")
                     }
                     
+                    if let lastDate = viewModel.mainActivity?.dateLastUpdated {
+//                        if Date().timeIntervalSince(lastDate)
+                    }
+                    
                     Text("Did you complete \(mainActivity) today?")
                     Button {
                         Task {

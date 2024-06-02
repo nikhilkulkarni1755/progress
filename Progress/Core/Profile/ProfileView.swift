@@ -53,7 +53,7 @@ final class ProfileViewModel: ObservableObject {
         if id == "activity_1" {
             guard let mainActivity else { return }
             let currentProgress = mainActivity.progress ?? 0
-            let updatedActivity = Activity(dateLastUpdated: mainActivity.dateLastUpdated, name: mainActivity.name, progress: currentProgress + 1)
+            let updatedActivity = Activity(dateLastUpdated: Date(), name: mainActivity.name, progress: currentProgress + 1)
             Task {
                 try await UserManager.shared.updateProgress(user: user.userId, activity: updatedActivity, id: id)
                 try await getAllActivities()
@@ -63,7 +63,7 @@ final class ProfileViewModel: ObservableObject {
         else if id == "activity_2" {
             guard let premiumActivities else { return }
             let currentProgress = premiumActivities[0].progress ?? 0
-            let updatedActivity = Activity(dateLastUpdated: premiumActivities[0].dateLastUpdated, name: premiumActivities[0].name, progress: currentProgress + 1)
+            let updatedActivity = Activity(dateLastUpdated: Date(), name: premiumActivities[0].name, progress: currentProgress + 1)
             Task {
                 try await UserManager.shared.updateProgress(user: user.userId, activity: updatedActivity, id: id)
                 try await getAllActivities()
@@ -75,7 +75,7 @@ final class ProfileViewModel: ObservableObject {
             // activity_3
             guard let premiumActivities else { return }
             let currentProgress = premiumActivities[1].progress ?? 0
-            let updatedActivity = Activity(dateLastUpdated: premiumActivities[1].dateLastUpdated, name: premiumActivities[1].name, progress: currentProgress + 1)
+            let updatedActivity = Activity(dateLastUpdated: Date(), name: premiumActivities[1].name, progress: currentProgress + 1)
             Task {
                 try await UserManager.shared.updateProgress(user: user.userId, activity: updatedActivity, id: id)
                 try await getAllActivities()
@@ -131,7 +131,30 @@ struct ProfileView: View {
                     
                     if let dateAccessed = viewModel.mainActivity?.dateLastUpdated {
 //                        let currDate = Date()
+                        let cal = Calendar.current
                         Text("Date last accessed: \(dateAccessed)")
+                        let currDate = cal.dateComponents([.year, .month, .day], from: Date())
+                        let actDate = cal.dateComponents([.year, .month, .day], from: dateAccessed)
+//                        Text("\(actDate.)")
+                        
+                        if actDate == currDate {
+                            Text("Dates are equal")
+                            Text("")
+                            //hide the button
+                        }
+//                        else if  {
+//                            Text("")
+//                        }
+//                        else if {
+//                            
+//                        }
+                        else {
+                            Text("Dates are !equal")
+                            
+//                            Text("\(currDate.day)")
+                            //check if the date is yesterday. we reset the streak otherwise
+                            
+                        }
                     }
                     else {
                         Text("No Date found")

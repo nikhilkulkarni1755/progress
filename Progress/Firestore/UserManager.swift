@@ -80,14 +80,22 @@ final class UserManager {
     }
     
     func createNewActivities(user: DBUser) async throws {
-        let name = ""
-        let data: [String:Any] = [
-            "name": name,
+//        let name = ""
+//        let names = ["Activity 1", "Activity 2", "Activity 3"]
+        let documents = ["activity_1", "activity_2", "activity_3"]
+        var data: [String:Any] = [
             "date_last_updated": Timestamp(),
             "progress": 0
         ]
+        
+//        for i in names.count {
+        data["name"] = "Activity 1"
+//        }
+        
         try await userDocument(userId: user.userId).collection("activities").document("activity_1").setData(data, merge: false)
+        data["name"] = "Activity 2"
         try await userDocument(userId: user.userId).collection("activities").document("activity_2").setData(data, merge: false)
+        data["name"] = "Activity 3"
         try await userDocument(userId: user.userId).collection("activities").document("activity_3").setData(data, merge: false)
     }
     

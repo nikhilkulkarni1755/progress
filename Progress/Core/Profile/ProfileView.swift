@@ -47,13 +47,19 @@ final class ProfileViewModel: ObservableObject {
 //        }
 //    }
     
-    func toggleProgress(id: String) async throws {
+    func toggleProgress(id: String, reset: Bool) async throws {
         guard let user else { return }
         
         if id == "activity_1" {
+            
             guard let mainActivity else { return }
-            let currentProgress = mainActivity.progress ?? 0
-            let updatedActivity = Activity(dateLastUpdated: Date(), name: mainActivity.name, progress: currentProgress + 1)
+            var currentProgress = mainActivity.progress ?? 0
+            currentProgress += 1
+            if reset {
+                currentProgress = 1
+            }
+            
+            let updatedActivity = Activity(dateLastUpdated: Date(), name: mainActivity.name, progress: currentProgress)
             Task {
                 try await UserManager.shared.updateProgress(user: user.userId, activity: updatedActivity, id: id)
                 try await getAllActivities()
@@ -62,8 +68,13 @@ final class ProfileViewModel: ObservableObject {
         }
         else if id == "activity_2" {
             guard let premiumActivities else { return }
-            let currentProgress = premiumActivities[0].progress ?? 0
-            let updatedActivity = Activity(dateLastUpdated: Date(), name: premiumActivities[0].name, progress: currentProgress + 1)
+//            let currentProgress = premiumActivities[0].progress ?? 0
+            var currentProgress = premiumActivities[0].progress ?? 0
+            currentProgress += 1
+            if reset {
+                currentProgress = 0
+            }
+            let updatedActivity = Activity(dateLastUpdated: Date(), name: premiumActivities[0].name, progress: currentProgress)
             Task {
                 try await UserManager.shared.updateProgress(user: user.userId, activity: updatedActivity, id: id)
                 try await getAllActivities()
@@ -74,8 +85,13 @@ final class ProfileViewModel: ObservableObject {
         else {
             // activity_3
             guard let premiumActivities else { return }
-            let currentProgress = premiumActivities[1].progress ?? 0
-            let updatedActivity = Activity(dateLastUpdated: Date(), name: premiumActivities[1].name, progress: currentProgress + 1)
+//            let currentProgress = premiumActivities[1].progress ?? 0
+            var currentProgress = premiumActivities[1].progress ?? 0
+            currentProgress += 1
+            if reset {
+                currentProgress = 0
+            }
+            let updatedActivity = Activity(dateLastUpdated: Date(), name: premiumActivities[1].name, progress: currentProgress)
             Task {
                 try await UserManager.shared.updateProgress(user: user.userId, activity: updatedActivity, id: id)
                 try await getAllActivities()
@@ -126,129 +142,155 @@ struct ProfileView: View {
                 Section(header: Text("**\(mainActivity)**")) {
                     if let progress = viewModel.mainActivity?.progress {
                         Text("Progress: \(progress)")
-//                        Text("Another text")
                     }
                     
                     if let dateAccessed = viewModel.mainActivity?.dateLastUpdated {
-//                        let currDate = Date()
                         let cal = Calendar.current
-//                        Text("Date last accessed: \(dateAccessed)")
                         let currDate = cal.dateComponents([.year, .month, .day], from: Date())
                         let actDate = cal.dateComponents([.year, .month, .day], from: dateAccessed)
-//                        Text("\(actDate.)")
-//                        let aDate = actDate.date()
-//                        Text("\(aDate)")
                         if let lastAccessedDate = cal.date(from: actDate) {
                             if let currentDate = cal.date(from: currDate) {
                                 if let dayDifference = cal.dateComponents([.day], from: lastAccessedDate, to: currentDate).day {
                                     let res = dayDifference == -1 || dayDifference == 1
-                                    Text("day Difference: \(String(describing: res))")
+//                                    Text("\(String(describing: dayDifference))")
+//                                    Text("day Difference: \(String(describing: res))")
+                                    
+                                    if dayDifference == 1 {
+                                        Text("Did you complete \(mainActivity) today?")
+                                        Button {
+                                            Task {
+                                                try await viewModel.toggleProgress(id:"activity_1", reset: false)
+                                            }
+                                        } label: {
+                                            Text("Complete ✅")
+                                        }
+                                    }
+                                    else if dayDifference > 0 {
+                                        Text("Did you complete \(mainActivity) today?")
+                                        Button {
+                                            Task {
+                                                try await viewModel.toggleProgress(id:"activity_1", reset: true)
+                                            }
+                                        } label: {
+                                            Text("Complete ✅, but we are resetting since not in a row")
+                                        }
+                                    }
+                                    else {
+                                        Text("Check in tomorrow for \(mainActivity)")
+                                    }
                                 }
                             }
-                        }
-                        
-                        
-                        
-                        if actDate == currDate {
-                            Text("Dates are equal")
-//                            Text("")
-                            //hide the button
-                        }
-//                        else if  {
-//                            Text("")
-//                        }
-//                        else if {
-//                            
-//                        }
-                        else {
-                            Text("Dates are !equal")
-                            
-//                            Text("\(currDate.day)")
-                            //check if the date is yesterday. we reset the streak otherwise
-                            
                         }
                     }
                     else {
                         Text("No Date found")
                     }
-                    
-//                    if let lastDate = viewModel.mainActivity?.dateLastUpdated {
-////                        if Date().timeIntervalSince(lastDate)
-////                        if lastDate != Date() {
-//                            // then show the buttons
-////                        Text("\(Date())")
-////                        Text("\(lastDate)")
-////                        Text("Hello world")
-////                        }
-//                    }
-                    
-                    Text("Did you complete \(mainActivity) today?")
-                    Button {
-                        Task {
-                            try await viewModel.toggleProgress(id:"activity_1")
-                        }
-                    } label: {
-                        Text("Complete ✅")
-                    }
-//                    TextField("Edit Activity?", text: $viewModel.name)
-                    
-                    // TextField("", text: name)
                 }
             }
-            if let activities = viewModel.premiumActivities, !activities.isEmpty, let act2 = activities[0].name, let progress2 = activities[0].progress, let progress3 = activities[1].progress, let act3 = activities[1].name  {
+            if let activities = viewModel.premiumActivities, !activities.isEmpty, let act2 = activities[0].name, let progress2 = activities[0].progress, let progress3 = activities[1].progress, let act3 = activities[1].name, let date2 = activities[0].dateLastUpdated, let date3 = activities[1].dateLastUpdated  {
                 if let isPremium = viewModel.user?.isPremium {
                     if isPremium == true {
                         Section(header: Text("\(act2)")) {
-                            Text("Progress: \(progress2)")
-                            Text("date")
-                            Text("Did you complete \(act2) today?")
-                            Button {
-                                Task {
-                                    try await viewModel.toggleProgress(id:"activity_2")
+                            let cal = Calendar.current
+                            let currDate = cal.dateComponents([.year, .month, .day], from: Date())
+                            let actDate = cal.dateComponents([.year, .month, .day], from: date2)
+                            if let lastAccessedDate = cal.date(from: actDate) {
+                                if let currentDate = cal.date(from: currDate) {
+                                    if let dayDifference = cal.dateComponents([.day], from: lastAccessedDate, to: currentDate).day {
+                                        let res = dayDifference == -1 || dayDifference == 1
+                                        Text("\(String(describing: dayDifference))")
+                                        Text("day Difference: \(String(describing: res))")
+                                        if dayDifference == 1 {
+                                            Text("Did you complete \(act2) today?")
+                                            Button {
+                                                Task {
+                                                    try await viewModel.toggleProgress(id:"activity_2", reset: false)
+                                                }
+                                            } label: {
+                                                Text("Complete ✅")
+                                            }
+                                        }
+                                        else {
+                                            Text("Did you complete \(act2) today?")
+                                            Button {
+                                                Task {
+                                                    try await viewModel.toggleProgress(id:"activity_2", reset: true)
+                                                }
+                                            } label: {
+                                                Text("Complete ✅, but we are resetting since not in a row")
+                                            }
+                                        }
+                                    }
                                 }
-                            } label: {
-                                Text("Complete ✅")
                             }
                         }
                         Section(header: Text("\(act3)")) {
                             Text("Progress: \(progress3)")
-                            Text("Did you complete \(act3) today?")
-                            Button {
-                                Task {
-                                    try await viewModel.toggleProgress(id:"activity_3")
+                            let cal = Calendar.current
+                            let currDate = cal.dateComponents([.year, .month, .day], from: Date())
+                            let actDate = cal.dateComponents([.year, .month, .day], from: date3)
+                            if let lastAccessedDate = cal.date(from: actDate) {
+                                if let currentDate = cal.date(from: currDate) {
+                                    if let dayDifference = cal.dateComponents([.day], from: lastAccessedDate, to: currentDate).day {
+                                        // this should be 1, not -1
+                                        let res = dayDifference == -1 || dayDifference == 1
+                                        Text("\(String(describing: dayDifference))")
+                                        Text("day Difference: \(String(describing: res))")
+                                        
+                                        if dayDifference == 1 {
+                                            Text("Did you complete \(act3) today?")
+                                            Button {
+                                                Task {
+                                                    try await viewModel.toggleProgress(id:"activity_3", reset: false)
+                                                }
+                                            } label: {
+                                                Text("Complete ✅")
+                                            }
+                                        }
+                                        else {
+                                            Text("Did you complete \(act3) today?")
+                                            Button {
+                                                Task {
+                                                    try await viewModel.toggleProgress(id:"activity_3", reset: true)
+                                                }
+                                            } label: {
+                                                Text("Complete ✅, but we are resetting since not in a row")
+                                            }
+                                        
+                                        }
+                                    }
                                 }
-                            } label: {
-                                Text("Complete ✅")
                             }
                         }
-                    }
-                    else {
-                        Button {
-                            
-                        } label: {
-                            Text("Get Premium")
-                        }
-                    }
-                }
-            } else {
-                Button {
+                    } else {
+                        Section(header: Text("For More Activities")) {
+                            Button {
 
-                } label: {
-                    Text("Get Premium")
-                }
-            }
-            
-            
-            
+                            } label: {
+                                Text("Get Premium")
+                            }
+                        }
+                        
+                    }
+                } 
+//                else {
+//                    Button {
+//
+//                    } label: {
+//                        Text("Get Premium 2")
+//                    }
+//                }
+            } 
+//            else {
+//                Button {
+//
+//                } label: {
+//                    Text("Get Premium")
+//                }
+//            }
         }.task {
-            
             try? await viewModel.loadCurrentUser()
             try? await viewModel.getAllActivities()
-//            try? await viewModel.getActivities()
-//            try? await viewModel.getPremiumActivities()
-            
-            //            print("done loading current user")
-            //            print(String(describing: viewModel.user?.userId))
         }
         .navigationTitle("Profile")
         .toolbar {

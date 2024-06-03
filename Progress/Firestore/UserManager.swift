@@ -82,7 +82,7 @@ final class UserManager {
     func createNewActivities(user: DBUser) async throws {
 //        let name = ""
 //        let names = ["Activity 1", "Activity 2", "Activity 3"]
-        let documents = ["activity_1", "activity_2", "activity_3"]
+//        let documents = ["activity_1", "activity_2", "activity_3"]
         var data: [String:Any] = [
             "date_last_updated": Timestamp(),
             "progress": 0

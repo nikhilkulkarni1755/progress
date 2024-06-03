@@ -72,7 +72,7 @@ final class ProfileViewModel: ObservableObject {
             var currentProgress = premiumActivities[0].progress ?? 0
             currentProgress += 1
             if reset {
-                currentProgress = 0
+                currentProgress = 1
             }
             let updatedActivity = Activity(dateLastUpdated: Date(), name: premiumActivities[0].name, progress: currentProgress)
             Task {
@@ -89,7 +89,7 @@ final class ProfileViewModel: ObservableObject {
             var currentProgress = premiumActivities[1].progress ?? 0
             currentProgress += 1
             if reset {
-                currentProgress = 0
+                currentProgress = 1
             }
             let updatedActivity = Activity(dateLastUpdated: Date(), name: premiumActivities[1].name, progress: currentProgress)
             Task {
@@ -165,7 +165,7 @@ struct ProfileView: View {
                                             Text("Complete ✅")
                                         }
                                     }
-                                    else if dayDifference > 0 {
+                                    else if dayDifference > 1 {
                                         Text("Did you complete \(mainActivity) today?")
                                         Button {
                                             Task {
@@ -198,8 +198,8 @@ struct ProfileView: View {
                                 if let currentDate = cal.date(from: currDate) {
                                     if let dayDifference = cal.dateComponents([.day], from: lastAccessedDate, to: currentDate).day {
                                         let res = dayDifference == -1 || dayDifference == 1
-                                        Text("\(String(describing: dayDifference))")
-                                        Text("day Difference: \(String(describing: res))")
+//                                        Text("\(String(describing: dayDifference))")
+//                                        Text("day Difference: \(String(describing: res))")
                                         if dayDifference == 1 {
                                             Text("Did you complete \(act2) today?")
                                             Button {
@@ -210,7 +210,7 @@ struct ProfileView: View {
                                                 Text("Complete ✅")
                                             }
                                         }
-                                        else {
+                                        else if dayDifference > 1 {
                                             Text("Did you complete \(act2) today?")
                                             Button {
                                                 Task {
@@ -219,6 +219,9 @@ struct ProfileView: View {
                                             } label: {
                                                 Text("Complete ✅, but we are resetting since not in a row")
                                             }
+                                        }
+                                        else {
+                                            Text("Check in tomorrow for \(act2)")
                                         }
                                     }
                                 }
@@ -234,8 +237,8 @@ struct ProfileView: View {
                                     if let dayDifference = cal.dateComponents([.day], from: lastAccessedDate, to: currentDate).day {
                                         // this should be 1, not -1
                                         let res = dayDifference == -1 || dayDifference == 1
-                                        Text("\(String(describing: dayDifference))")
-                                        Text("day Difference: \(String(describing: res))")
+//                                        Text("\(String(describing: dayDifference))")
+//                                        Text("day Difference: \(String(describing: res))")
                                         
                                         if dayDifference == 1 {
                                             Text("Did you complete \(act3) today?")
@@ -247,7 +250,7 @@ struct ProfileView: View {
                                                 Text("Complete ✅")
                                             }
                                         }
-                                        else {
+                                        else if dayDifference > 1 {
                                             Text("Did you complete \(act3) today?")
                                             Button {
                                                 Task {
@@ -256,7 +259,9 @@ struct ProfileView: View {
                                             } label: {
                                                 Text("Complete ✅, but we are resetting since not in a row")
                                             }
-                                        
+                                        }
+                                        else {
+                                            Text("Check in tomorrow for \(act3)")
                                         }
                                     }
                                 }

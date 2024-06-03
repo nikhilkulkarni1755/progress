@@ -132,14 +132,26 @@ struct ProfileView: View {
                     if let dateAccessed = viewModel.mainActivity?.dateLastUpdated {
 //                        let currDate = Date()
                         let cal = Calendar.current
-                        Text("Date last accessed: \(dateAccessed)")
+//                        Text("Date last accessed: \(dateAccessed)")
                         let currDate = cal.dateComponents([.year, .month, .day], from: Date())
                         let actDate = cal.dateComponents([.year, .month, .day], from: dateAccessed)
 //                        Text("\(actDate.)")
+//                        let aDate = actDate.date()
+//                        Text("\(aDate)")
+                        if let lastAccessedDate = cal.date(from: actDate) {
+                            if let currentDate = cal.date(from: currDate) {
+                                if let dayDifference = cal.dateComponents([.day], from: lastAccessedDate, to: currentDate).day {
+                                    let res = dayDifference == -1 || dayDifference == 1
+                                    Text("day Difference: \(String(describing: res))")
+                                }
+                            }
+                        }
+                        
+                        
                         
                         if actDate == currDate {
                             Text("Dates are equal")
-                            Text("")
+//                            Text("")
                             //hide the button
                         }
 //                        else if  {

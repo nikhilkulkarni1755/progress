@@ -85,7 +85,7 @@ final class UserManager {
 //        let documents = ["activity_1", "activity_2", "activity_3"]
         var data: [String:Any] = [
             "date_last_updated": Timestamp(),
-            "progress": 0
+            "progress": 1
         ]
         
 //        for i in names.count {
@@ -103,7 +103,7 @@ final class UserManager {
         let data: [String:Any] = [
             "name": name,
             "date_last_updated": Timestamp(),
-            "progress": 0
+            "progress": 1
         ]
         try await userDocument(userId: user.userId).collection("activities").document(activity).setData(data, merge: false)
     }

@@ -151,7 +151,7 @@ struct ProfileView: View {
                         if let lastAccessedDate = cal.date(from: actDate) {
                             if let currentDate = cal.date(from: currDate) {
                                 if let dayDifference = cal.dateComponents([.day], from: lastAccessedDate, to: currentDate).day {
-                                    let res = dayDifference == -1 || dayDifference == 1
+//                                    let res = dayDifference == -1 || dayDifference == 1
 //                                    Text("\(String(describing: dayDifference))")
 //                                    Text("day Difference: \(String(describing: res))")
                                     
@@ -172,7 +172,8 @@ struct ProfileView: View {
                                                 try await viewModel.toggleProgress(id:"activity_1", reset: true)
                                             }
                                         } label: {
-                                            Text("Complete ✅, but we are resetting since not in a row")
+                                            // , but we are resetting since not in a row
+                                            Text("Complete ✅")
                                         }
                                     }
                                     else {
@@ -191,13 +192,14 @@ struct ProfileView: View {
                 if let isPremium = viewModel.user?.isPremium {
                     if isPremium == true {
                         Section(header: Text("\(act2)")) {
+                            Text("Progress: \(progress2)")
                             let cal = Calendar.current
                             let currDate = cal.dateComponents([.year, .month, .day], from: Date())
                             let actDate = cal.dateComponents([.year, .month, .day], from: date2)
                             if let lastAccessedDate = cal.date(from: actDate) {
                                 if let currentDate = cal.date(from: currDate) {
                                     if let dayDifference = cal.dateComponents([.day], from: lastAccessedDate, to: currentDate).day {
-                                        let res = dayDifference == -1 || dayDifference == 1
+//                                        let res = dayDifference == -1 || dayDifference == 1
 //                                        Text("\(String(describing: dayDifference))")
 //                                        Text("day Difference: \(String(describing: res))")
                                         if dayDifference == 1 {
@@ -217,7 +219,8 @@ struct ProfileView: View {
                                                     try await viewModel.toggleProgress(id:"activity_2", reset: true)
                                                 }
                                             } label: {
-                                                Text("Complete ✅, but we are resetting since not in a row")
+                                                // , but we are resetting since not in a row
+                                                Text("Complete ✅")
                                             }
                                         }
                                         else {
@@ -236,7 +239,7 @@ struct ProfileView: View {
                                 if let currentDate = cal.date(from: currDate) {
                                     if let dayDifference = cal.dateComponents([.day], from: lastAccessedDate, to: currentDate).day {
                                         // this should be 1, not -1
-                                        let res = dayDifference == -1 || dayDifference == 1
+//                                        let res = dayDifference == -1 || dayDifference == 1
 //                                        Text("\(String(describing: dayDifference))")
 //                                        Text("day Difference: \(String(describing: res))")
                                         
@@ -257,7 +260,8 @@ struct ProfileView: View {
                                                     try await viewModel.toggleProgress(id:"activity_3", reset: true)
                                                 }
                                             } label: {
-                                                Text("Complete ✅, but we are resetting since not in a row")
+                                                // , but we are resetting since not in a row
+                                                Text("Complete ✅")
                                             }
                                         }
                                         else {

@@ -24,7 +24,7 @@ final class ProfileViewModel: ObservableObject {
     }
     
     func getProducts() async throws {
-        self.products = try await PurchaseManager().getProducts()
+        self.products = try await PurchaseManager.shared.getProducts()
     }
     
     func getAllActivities() async throws {
@@ -71,7 +71,7 @@ final class ProfileViewModel: ObservableObject {
     //            }t
                 
     //                self.user = try await UserManager.shared.getUser(userId: user.userId)
-                try await PurchaseManager().purchase(user: updatedUser, product: product)
+                try await PurchaseManager.shared.purchase(user: updatedUser, product: product)
             }
         }
         else {
@@ -170,7 +170,9 @@ struct ProfileView: View {
     @Binding var showSignInView: Bool
     
     // adding
-    @StateObject var storeKit = PurchaseManager()
+    
+//    From the tutorial
+//    @StateObject var storeKit = PurchaseManager()
     
     var body: some View {
         List {

@@ -17,27 +17,30 @@ final class PurchaseManager: ObservableObject {
     var updateListenerTask: Task<Void, Error>? = nil
     
     // MY CODE
-//    static let shared = PurchaseManager()
-//    private init() {
-//        Task {
-//            try await requestProducts()
-//            updateListenerTask = listenForTransactions()
-//        }
-//    }
-//    private let productDict: [String: String]
-    init() {
-        
-        // key, string
-        
-        // i don't need the productDict
-        
-        updateListenerTask = listenForTransactions()
-        
+    static let shared = PurchaseManager()
+    private init() {
+//        updateListenerTask = listenForTransactions()
         Task {
-            try await requestProducts()
-            try await updateProductStatus()
+            await requestProducts()
+            await updateProductStatus()
         }
     }
+//    private let productDict: [String: String]
+
+//    TUTORIAL CODE
+//    init() {
+//
+//        // key, string
+//        
+//        // i don't need the productDict
+//        
+//        updateListenerTask = listenForTransactions()
+//        
+//        Task {
+//            await requestProducts()
+//            await updateProductStatus()
+//        }
+//    }
     
     deinit {
         updateListenerTask?.cancel()
@@ -102,26 +105,48 @@ final class PurchaseManager: ObservableObject {
     
 //    func purchase(user: DBUser, product: Product) async throws -> Transaction? {
     func purchase(user: DBUser, product: Product) async throws -> Transaction? {
-//        let product = try await Product.products(for: ["com.nsk1755.Progress.premium"])
-        let result = try await product.purchase()
+        let mainproduct = try await Product.products(for: ["com.nsk1755.Progress.premium"])
         
-        switch result {
-        case .success(let verificationResult):
-            let transaction = try checkVerified(verificationResult)
-            
-            await updateProductStatus()
-            
-            //this is our addition for firebase yay
-            try await UserManager.shared.purchasedPremium(user: user)
-            
-            await transaction.finish()
-            
-            return transaction
-        case .userCancelled, .pending:
-            return nil
-        default:
-            return nil
+        if let prod = mainproduct.first {
+            print("\(prod.displayPrice)")
+            let result = try await prod.purchase()
+            print(result)
+            switch result {
+            case .success(let verificationResult):
+                let transaction = try checkVerified(verificationResult)
+                print(transaction)
+//                await updateProductStatus()
+                
+                //this is our addition for firebase yay
+                if self.purchasedItems != [] {
+                    print("self.purchasedItems is not empty")
+                    print(self.purchasedItems)
+                }
+                else {
+                    print("self.purchasedItems is empty")
+                }
+//                commenting out so I can reuse Accounts lmfao
+                
+                
+                await transaction.finish()
+                
+                await updateProductStatus()
+                
+                print("done awaiting transaction finish")
+                
+//                try await UserManager.shared.purchasedPremium(user: user)
+                
+                return transaction
+            case .userCancelled, .pending:
+                return nil
+            default:
+                return nil
+            }
         }
+        else {
+            print("prod is empty")
+        }
+        return nil
     }
     
     func isPurchased(product: Product) async throws -> Bool {

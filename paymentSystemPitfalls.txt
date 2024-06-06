@@ -1,0 +1,9 @@
+1) implemented singleton structure as comfortable using it with swiftui
+
+2) try await product.products within the purchase() fxn (we can cut out the extra param)
+
+3) print statements show that the result we are getting is successful, obvious the way the db is updating isPremium
+
+4) updateListenerTask commenting it out from the beginning, maybe it can run AFTER purchase let's see
+
+5) moving updateProductStatus() to the end of the fxn

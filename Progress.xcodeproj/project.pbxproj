@@ -14,6 +14,8 @@
 		110B425F2C0155F300D3103B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110B425E2C0155F300D3103B /* ProfileView.swift */; };
 		110BB8B72C09EBBE009A5087 /* EditActivitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110BB8B62C09EBBE009A5087 /* EditActivitiesView.swift */; };
 		110CBD7B2BF8904400BC6814 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 110CBD7A2BF8904400BC6814 /* FirebaseAnalytics */; };
+		111A5D282C107D2F00F0D0C6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 111A5D272C107D2F00F0D0C6 /* StoreKit.framework */; };
+		111A5D2A2C107D7600F0D0C6 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111A5D292C107D7600F0D0C6 /* PurchaseManager.swift */; };
 		112351082BC4A57200C2F9CC /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112351072BC4A57200C2F9CC /* ViewModel.swift */; };
 		11825E082BFEDCF200BB0C8F /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11825E072BFEDCF200BB0C8F /* AuthenticationManager.swift */; };
 		11825E0A2BFF33B100BB0C8F /* SignInGoogleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11825E092BFF33B100BB0C8F /* SignInGoogleView.swift */; };
@@ -60,6 +62,9 @@
 		110B425B2C01558300D3103B /* SignInEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailViewModel.swift; sourceTree = "<group>"; };
 		110B425E2C0155F300D3103B /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		110BB8B62C09EBBE009A5087 /* EditActivitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivitiesView.swift; sourceTree = "<group>"; };
+		111A5D272C107D2F00F0D0C6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		111A5D292C107D7600F0D0C6 /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
+		111A5D2C2C10BC5E00F0D0C6 /* The Progress App.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "The Progress App.storekit"; sourceTree = "<group>"; };
 		112351072BC4A57200C2F9CC /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		11825E072BFEDCF200BB0C8F /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		11825E092BFF33B100BB0C8F /* SignInGoogleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleView.swift; sourceTree = "<group>"; };
@@ -90,6 +95,7 @@
 			files = (
 				110CBD7B2BF8904400BC6814 /* FirebaseAnalytics in Frameworks */,
 				11C291322BF899E30010472F /* FirebaseAuth in Frameworks */,
+				111A5D282C107D2F00F0D0C6 /* StoreKit.framework in Frameworks */,
 				1183CC502C00ABB00064C219 /* FirebaseFirestore in Frameworks */,
 				1183CC522C00ABBA0064C219 /* FirebaseFirestoreSwift in Frameworks */,
 			);
@@ -164,6 +170,8 @@
 			isa = PBXGroup;
 			children = (
 				1182FE362C0180DC0046F8A8 /* UserManager.swift */,
+				111A5D292C107D7600F0D0C6 /* PurchaseManager.swift */,
+				111A5D2C2C10BC5E00F0D0C6 /* The Progress App.storekit */,
 			);
 			path = Firestore;
 			sourceTree = "<group>";
@@ -236,6 +244,7 @@
 		11C291302BF899E30010472F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				111A5D272C107D2F00F0D0C6 /* StoreKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -399,6 +408,7 @@
 				11825E0C2BFF38A300BB0C8F /* RootView.swift in Sources */,
 				110B425F2C0155F300D3103B /* ProfileView.swift in Sources */,
 				118920E22BBD2EBA001A3ECD /* ProgressApp.swift in Sources */,
+				111A5D2A2C107D7600F0D0C6 /* PurchaseManager.swift in Sources */,
 				11825E0A2BFF33B100BB0C8F /* SignInGoogleView.swift in Sources */,
 				118920E92BBD2EBA001A3ECD /* ContentView.swift in Sources */,
 				118920E42BBD2EBA001A3ECD /* Persistence.swift in Sources */,
@@ -562,6 +572,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Progress/Progress.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Progress/Preview Content\"";
@@ -599,6 +610,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Progress/Progress.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Progress/Preview Content\"";

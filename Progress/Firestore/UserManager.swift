@@ -141,6 +141,10 @@ final class UserManager {
         try userDocument(userId: user.userId).setData(from: user, merge: true, encoder: encoder)
     }
     
+    func purchasedPremium(user: DBUser) async throws {
+        try userDocument(userId: user.userId).setData(from: user, merge: true, encoder: encoder)
+    }
+    
 //    func updateProgress(user: DBUser) async throws {
 //        try userDocument(userId: user.userId).setData(from: user, merge: true, encoder: encoder)
 //    }

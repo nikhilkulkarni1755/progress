@@ -11,6 +11,7 @@ import Firebase
 @main
 struct ProgressApp: App {
     let persistenceController = PersistenceController.shared
+    @StateObject private var paymentManager = PaymentManager.shared
     
     init() {
         FirebaseApp.configure()
@@ -19,7 +20,7 @@ struct ProgressApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView()
+            RootView().environmentObject(paymentManager)
 //            NavigationStack {
 //                AuthenticationView()
 //            }

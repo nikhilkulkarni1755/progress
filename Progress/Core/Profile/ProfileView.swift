@@ -71,7 +71,17 @@ final class ProfileViewModel: ObservableObject {
     //            }t
                 
     //                self.user = try await UserManager.shared.getUser(userId: user.userId)
-                try await PurchaseManager.shared.purchase(user: updatedUser, product: product)
+                do {
+                    let transaction = try await PurchaseManager.shared.purchase(user: updatedUser, product: product)
+                    if let transaction = transaction {
+                        print("Purchase successful")
+                    }
+                    else {
+                        print("not completed")
+                    } 
+                } catch {
+                    print("purchase failed w error \(error)")
+                }
             }
         }
         else {
@@ -168,6 +178,7 @@ struct ProfileView: View {
     
     @StateObject private var viewModel = ProfileViewModel()
     @Binding var showSignInView: Bool
+    @EnvironmentObject var paymentManager: PaymentManager
     
     // adding
     

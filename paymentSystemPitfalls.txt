@@ -1,3 +1,5 @@
+i've created a dummy project to try and get the dialog box to show on my system in any way. Will work on it tomorrow, I have started some of it. 
+
 1) implemented singleton structure as comfortable using it with swiftui
 
 2) try await product.products within the purchase() fxn (we can cut out the extra param)

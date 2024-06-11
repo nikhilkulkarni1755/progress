@@ -18,6 +18,7 @@
 		111A5D2A2C107D7600F0D0C6 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111A5D292C107D7600F0D0C6 /* PurchaseManager.swift */; };
 		112351082BC4A57200C2F9CC /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112351072BC4A57200C2F9CC /* ViewModel.swift */; };
 		112F4CD72C11B4F100C9903F /* PaymentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112F4CD62C11B4F100C9903F /* PaymentManager.swift */; };
+		115F2D7E2C1743F200AF0812 /* PremiumProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115F2D7D2C1743F200AF0812 /* PremiumProduct.swift */; };
 		11825E082BFEDCF200BB0C8F /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11825E072BFEDCF200BB0C8F /* AuthenticationManager.swift */; };
 		11825E0A2BFF33B100BB0C8F /* SignInGoogleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11825E092BFF33B100BB0C8F /* SignInGoogleView.swift */; };
 		11825E0C2BFF38A300BB0C8F /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11825E0B2BFF38A300BB0C8F /* RootView.swift */; };
@@ -68,6 +69,7 @@
 		111A5D2C2C10BC5E00F0D0C6 /* The Progress App.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "The Progress App.storekit"; sourceTree = "<group>"; };
 		112351072BC4A57200C2F9CC /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		112F4CD62C11B4F100C9903F /* PaymentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentManager.swift; sourceTree = "<group>"; };
+		115F2D7D2C1743F200AF0812 /* PremiumProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumProduct.swift; sourceTree = "<group>"; };
 		11825E072BFEDCF200BB0C8F /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		11825E092BFF33B100BB0C8F /* SignInGoogleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleView.swift; sourceTree = "<group>"; };
 		11825E0B2BFF38A300BB0C8F /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			children = (
 				1182FE362C0180DC0046F8A8 /* UserManager.swift */,
 				112F4CD62C11B4F100C9903F /* PaymentManager.swift */,
+				115F2D7D2C1743F200AF0812 /* PremiumProduct.swift */,
 				111A5D292C107D7600F0D0C6 /* PurchaseManager.swift */,
 				111A5D2C2C10BC5E00F0D0C6 /* The Progress App.storekit */,
 			);
@@ -412,6 +415,7 @@
 				112F4CD72C11B4F100C9903F /* PaymentManager.swift in Sources */,
 				110B425F2C0155F300D3103B /* ProfileView.swift in Sources */,
 				118920E22BBD2EBA001A3ECD /* ProgressApp.swift in Sources */,
+				115F2D7E2C1743F200AF0812 /* PremiumProduct.swift in Sources */,
 				111A5D2A2C107D7600F0D0C6 /* PurchaseManager.swift in Sources */,
 				11825E0A2BFF33B100BB0C8F /* SignInGoogleView.swift in Sources */,
 				118920E92BBD2EBA001A3ECD /* ContentView.swift in Sources */,

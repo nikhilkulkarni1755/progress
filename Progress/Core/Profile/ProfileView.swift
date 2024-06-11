@@ -14,18 +14,20 @@ final class ProfileViewModel: ObservableObject {
     @Published private(set) var user: DBUser? = nil
     @Published private(set) var mainActivity: Activity? = nil
     @Published private(set) var premiumActivities: [Activity]? = []
-    @Published private(set) var products: [Product] = []
+    // older payment code
+//    @Published private(set) var products: [Product] = []
     
 //    @StateObject var storeKit = PurchaseManager()
+    @EnvironmentObject private var paymentManager: PaymentManager
     
     func loadCurrentUser() async throws {
         let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
         self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
     }
     
-    func getProducts() async throws {
-        self.products = try await PurchaseManager.shared.getProducts()
-    }
+//    func getProducts() async throws {
+//        self.products = try await PurchaseManager.shared.getProducts()
+//    }
     
     func getAllActivities() async throws {
         guard let user else { return }
@@ -62,8 +64,8 @@ final class ProfileViewModel: ObservableObject {
 //        guard let self.products else { return }
         let updatedUser = DBUser(userId: user.userId, isPremium: true, email: user.email, dateCreated: user.dateCreated)
 //        guard let products else { return }
-        if let product = self.products.first {
-            Task {
+//        if let product = self.products.first {
+//            Task {
     //            if let product = self.products?.first {
     //                let _ = try await PurchaseManager.shared.purchase(user: updatedUser, product:product)
     ////                try await getAllActivities()
@@ -71,23 +73,25 @@ final class ProfileViewModel: ObservableObject {
     //            }t
                 
     //                self.user = try await UserManager.shared.getUser(userId: user.userId)
-                do {
-                    let transaction = try await PurchaseManager.shared.purchase(user: updatedUser, product: product)
-                    if let transaction = transaction {
-                        print("Purchase successful")
-                    }
-                    else {
-                        print("not completed")
-                    } 
-                } catch {
-                    print("purchase failed w error \(error)")
-                }
-            }
-        }
-        else {
-            print("products.first aint there")
-        }
-        
+                
+                
+//                do {
+//                    let transaction = try await PurchaseManager.shared.purchase(user: updatedUser, product: product)
+//                    if let transaction = transaction {
+//                        print("Purchase successful")
+//                    }
+//                    else {
+//                        print("not completed")
+//                    } 
+//                } catch {
+//                    print("purchase failed w error \(error)")
+//                }
+//            }
+//        }
+//        else {
+//            print("products.first aint there")
+//        }
+//        
     }
     
     func toggleProgress(id: String, reset: Bool) async throws {

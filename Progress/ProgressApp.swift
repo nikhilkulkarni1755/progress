@@ -11,7 +11,8 @@ import Firebase
 @main
 struct ProgressApp: App {
     let persistenceController = PersistenceController.shared
-    @StateObject private var paymentManager = PaymentManager.shared
+//    @StateObject private var paymentManager = PaymentManager.shared
+    @StateObject private var paymentManager = PaymentManager()
     
     init() {
         FirebaseApp.configure()

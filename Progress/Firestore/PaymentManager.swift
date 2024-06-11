@@ -8,36 +8,133 @@
 import Foundation
 import StoreKit
 
-class PaymentManager: NSObject, ObservableObject, SKPaymentTransactionObserver {
-    static let shared = PaymentManager()
+typealias FetchCompletionHandler = (([SKProduct]) -> Void)
+typealias PurchaseCompletionHandler = ((SKPaymentTransaction?) -> Void)
+
+class PaymentManager: NSObject, ObservableObject {
     
-    private override init() {
+    //create the element
+    @Published var allProducts = [PremiumProduct]()
+    
+    private let allProductIdentifiers = Set(["com.nsk1755.Progress.premium"])
+    
+    private var productsRequest: SKProductsRequest?
+    private var fetchedProducts = [SKProduct]()
+    private var fetchCompletionHandler: FetchCompletionHandler?
+    private var purchaseCompletionHandler: PurchaseCompletionHandler?
+
+    private var completedPurchases = [String]() {
+            didSet {
+                DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                    
+                for index in self.allProducts.indices {
+                    self.allProducts[index].isLocked = !self.completedPurchases.contains(self.allProducts[index].id)
+                }
+            }
+        }
+    }
+    
+    override init() {
         super.init()
+        
+        startObservingPaymentQueue()
+        
+        fetchProducts { products in
+//            print(products)
+            self.allProducts = products.map {
+                PremiumProduct(product: $0)
+            }
+        }
+    }
+    
+    private func startObservingPaymentQueue() {
         SKPaymentQueue.default().add(self)
     }
     
-    deinit {
-        SKPaymentQueue.default().remove(self)
+    private func fetchProducts(_ completion: @escaping FetchCompletionHandler) {
+        guard self.productsRequest == nil else { return }
+        fetchCompletionHandler = completion
+        
+        productsRequest = SKProductsRequest(productIdentifiers: allProductIdentifiers)
+        productsRequest?.delegate = self
+        productsRequest?.start()
     }
     
-    func paymentQueue( _ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+    private func buy( _ product: SKProduct, completion: @escaping PurchaseCompletionHandler) {
+        purchaseCompletionHandler = completion
+        
+        let payment = SKPayment(product: product)
+        
+        SKPaymentQueue.default().add(payment)
+    }
+}
+
+extension PaymentManager: SKProductsRequestDelegate {
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        let loadedProducts = response.products
+        let invalidProducts = response.invalidProductIdentifiers
+        
+        guard !loadedProducts.isEmpty else {
+            print("couldn't load products")
+            if !invalidProducts.isEmpty {
+                print("invalid products found")
+            }
+            productsRequest = nil
+            return
+        }
+        
+        //cache the fetched products
+        fetchedProducts = loadedProducts
+
+        //notify anyone waiting on the product load
+        DispatchQueue.main.async {
+            self.fetchCompletionHandler?(loadedProducts)
+            self.fetchCompletionHandler = nil
+            self.productsRequest = nil
+        }
+    }
+}
+
+extension PaymentManager {
+    func product(for identifier: String) -> SKProduct? {
+        return fetchedProducts.first(where: {
+            $0.productIdentifier == identifier
+        })
+    }
+        
+    func purchaseProduct(_ product: SKProduct) {
+        startObservingPaymentQueue()
+        buy(product) {
+            _ in
+        }
+    }
+}
+
+extension PaymentManager: SKPaymentTransactionObserver {
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
+            var shouldFinishTransaction = false
             switch transaction.transactionState {
-            case .purchased:
-                print("Transaction successed! \(transaction)")
-                SKPaymentQueue.default().finishTransaction(transaction)
+                
+            case .purchased, .restored:
+                completedPurchases.append(transaction.payment.productIdentifier)
+                shouldFinishTransaction = true
             case .failed:
-                print("Transaction failed! \(transaction)")
-                SKPaymentQueue.default().finishTransaction(transaction)
-            case .restored:
-                print("Transaction failed! \(transaction)")
-                SKPaymentQueue.default().finishTransaction(transaction)
+                shouldFinishTransaction = true
             case .deferred, .purchasing:
                 break
             @unknown default:
                 break
             }
             
+            if shouldFinishTransaction {
+                SKPaymentQueue.default().finishTransaction(transaction)
+                DispatchQueue.main.async {
+                    self.purchaseCompletionHandler?(transaction)
+                    self.purchaseCompletionHandler = nil
+                }
+            }
         }
     }
 }

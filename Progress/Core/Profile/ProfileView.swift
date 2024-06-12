@@ -25,9 +25,21 @@ final class ProfileViewModel: ObservableObject {
         self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
     }
     
-//    func getProducts() async throws {
+    func getProducts() async throws {
 //        self.products = try await PurchaseManager.shared.getProducts()
-//    }
+        
+        guard let user else { return }
+        
+        if let isPrem = user.isPremium {
+            if !isPrem {
+                //hopefully this gets us our first and ONLY product currently in the store.
+                let product = paymentManager.allProducts.first()
+                
+                
+//                try await PaymentManager.purchaseProduct()
+            }
+        }
+    }
     
     func getAllActivities() async throws {
         guard let user else { return }

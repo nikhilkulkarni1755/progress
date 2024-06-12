@@ -33,9 +33,9 @@ final class ProfileViewModel: ObservableObject {
         if let isPrem = user.isPremium {
             if !isPrem {
                 //hopefully this gets us our first and ONLY product currently in the store.
-                let product = paymentManager.allProducts.first()
+                let product = paymentManager.allProducts.first
                 
-                
+                print("\(String(describing: product?.title))")
 //                try await PaymentManager.purchaseProduct()
             }
         }

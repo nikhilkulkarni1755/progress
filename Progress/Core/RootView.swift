@@ -10,11 +10,12 @@ import SwiftUI
 struct RootView: View {
     
     @State private var showSignInView: Bool = false
+    @StateObject private var paymentManager = PaymentManager()
     
     var body: some View {
         ZStack {
             NavigationStack {
-                ProfileView(showSignInView: $showSignInView)
+                ProfileView(showSignInView: $showSignInView).environmentObject(paymentManager)
             }
         }
         .onAppear {
@@ -32,4 +33,5 @@ struct RootView: View {
 
 #Preview {
     RootView()
+//        .environmentObject(paymentManager)
 }

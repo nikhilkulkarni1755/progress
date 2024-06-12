@@ -18,7 +18,7 @@ final class ProfileViewModel: ObservableObject {
 //    @Published private(set) var products: [Product] = []
     
 //    @StateObject var storeKit = PurchaseManager()
-    @EnvironmentObject private var paymentManager: PaymentManager
+    
     
     func loadCurrentUser() async throws {
         let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
@@ -29,13 +29,18 @@ final class ProfileViewModel: ObservableObject {
 //        self.products = try await PurchaseManager.shared.getProducts()
         
         guard let user else { return }
+//        guard let paymentManager else {
+//            print("didn't find paymentManager")
+//            return
+//        }
         
         if let isPrem = user.isPremium {
             if !isPrem {
                 //hopefully this gets us our first and ONLY product currently in the store.
-                let product = paymentManager.allProducts.first
-                
-                print("\(String(describing: product?.title))")
+//                if let product =
+//                    self.paymentManager.allProducts.first {
+//                    print("\(String(describing: product.title))")
+//                }
 //                try await PaymentManager.purchaseProduct()
             }
         }
@@ -347,8 +352,13 @@ struct ProfileView: View {
                         Section(header: Text("For More Activities")) {
                             Button {
                                 Task {
-                                    try await viewModel.purchasePremium()
+//                                    try await viewModel.purchasePremium()
 //                                    try await storeKit.purchase(user: user, product: product)
+//                                    print(paymentManager.allProducts.first)
+                                    if let prod = paymentManager.product(for: "com.nsk1755.Progress.premium") {
+                                        paymentManager.purchaseProduct(prod)
+                                    }
+                                    
                                 }
                             } label: {
                                 Text("Get Premium")

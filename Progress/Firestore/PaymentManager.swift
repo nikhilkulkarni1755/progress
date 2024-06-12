@@ -22,6 +22,7 @@ class PaymentManager: NSObject, ObservableObject {
     private var fetchedProducts = [SKProduct]()
     private var fetchCompletionHandler: FetchCompletionHandler?
     private var purchaseCompletionHandler: PurchaseCompletionHandler?
+    private var user: DBUser? = nil
 
     private var completedPurchases = [String]() {
             didSet {
@@ -103,7 +104,8 @@ extension PaymentManager {
         })
     }
         
-    func purchaseProduct(_ product: SKProduct) {
+    func purchaseProduct(_ product: SKProduct, user: DBUser?) {
+        self.user = user
         startObservingPaymentQueue()
         buy(product) {
             _ in
@@ -115,9 +117,14 @@ extension PaymentManager: SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
             var shouldFinishTransaction = false
+            var isBuying = false
             switch transaction.transactionState {
                 
-            case .purchased, .restored:
+            case .purchased:
+                completedPurchases.append(transaction.payment.productIdentifier)
+                shouldFinishTransaction = true
+                isBuying = true
+            case .restored:
                 completedPurchases.append(transaction.payment.productIdentifier)
                 shouldFinishTransaction = true
             case .failed:
@@ -135,6 +142,12 @@ extension PaymentManager: SKPaymentTransactionObserver {
                     self.purchaseCompletionHandler = nil
                 }
             }
+            
+//            if isBuying {
+//                if let buyuser = self.user {
+//                    try await UserManager.shared.purchasedPremium(user: buyuser)
+//                }
+//            }
         }
     }
 }

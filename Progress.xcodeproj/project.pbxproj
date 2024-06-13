@@ -35,6 +35,7 @@
 		118920F92BBD2EBF001A3ECD /* ProgressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118920F82BBD2EBF001A3ECD /* ProgressTests.swift */; };
 		118921032BBD2EBF001A3ECD /* ProgressUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118921022BBD2EBF001A3ECD /* ProgressUITests.swift */; };
 		118921052BBD2EBF001A3ECD /* ProgressUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118921042BBD2EBF001A3ECD /* ProgressUITestsLaunchTests.swift */; };
+		11B25DE72C1B49340076CACC /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 11B25DE62C1B49340076CACC /* PrivacyInfo.xcprivacy */; };
 		11C291322BF899E30010472F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 11C291312BF899E30010472F /* FirebaseAuth */; };
 		11C291352BF89A910010472F /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C291342BF89A910010472F /* AuthenticationView.swift */; };
 		11CD5B2B2BF88F7400A02F05 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11CD5B2A2BF88F7200A02F05 /* GoogleService-Info.plist */; };
@@ -66,7 +67,6 @@
 		110BB8B62C09EBBE009A5087 /* EditActivitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivitiesView.swift; sourceTree = "<group>"; };
 		111A5D272C107D2F00F0D0C6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		111A5D292C107D7600F0D0C6 /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
-		111A5D2C2C10BC5E00F0D0C6 /* The Progress App.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "The Progress App.storekit"; sourceTree = "<group>"; };
 		112351072BC4A57200C2F9CC /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		112F4CD62C11B4F100C9903F /* PaymentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentManager.swift; sourceTree = "<group>"; };
 		115F2D7D2C1743F200AF0812 /* PremiumProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumProduct.swift; sourceTree = "<group>"; };
@@ -88,6 +88,8 @@
 		118920FE2BBD2EBF001A3ECD /* ProgressUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProgressUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		118921022BBD2EBF001A3ECD /* ProgressUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressUITests.swift; sourceTree = "<group>"; };
 		118921042BBD2EBF001A3ECD /* ProgressUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		11B25DE52C1B44C80076CACC /* The Progress App.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "The Progress App.storekit"; sourceTree = "<group>"; };
+		11B25DE62C1B49340076CACC /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		11C291342BF89A910010472F /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		11CD5B2A2BF88F7200A02F05 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -175,9 +177,9 @@
 			children = (
 				1182FE362C0180DC0046F8A8 /* UserManager.swift */,
 				112F4CD62C11B4F100C9903F /* PaymentManager.swift */,
+				11B25DE52C1B44C80076CACC /* The Progress App.storekit */,
 				115F2D7D2C1743F200AF0812 /* PremiumProduct.swift */,
 				111A5D292C107D7600F0D0C6 /* PurchaseManager.swift */,
-				111A5D2C2C10BC5E00F0D0C6 /* The Progress App.storekit */,
 			);
 			path = Firestore;
 			sourceTree = "<group>";
@@ -207,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				118920E12BBD2EBA001A3ECD /* ProgressApp.swift */,
+				11B25DE62C1B49340076CACC /* PrivacyInfo.xcprivacy */,
 				11CD5B2A2BF88F7200A02F05 /* GoogleService-Info.plist */,
 				118920E32BBD2EBA001A3ECD /* Persistence.swift */,
 				118920E82BBD2EBA001A3ECD /* ContentView.swift */,
@@ -379,6 +382,7 @@
 			files = (
 				118920EF2BBD2EBF001A3ECD /* Preview Assets.xcassets in Resources */,
 				118920EB2BBD2EBF001A3ECD /* Assets.xcassets in Resources */,
+				11B25DE72C1B49340076CACC /* PrivacyInfo.xcprivacy in Resources */,
 				11CD5B2B2BF88F7400A02F05 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

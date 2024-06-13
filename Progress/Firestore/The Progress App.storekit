@@ -1,5 +1,5 @@
 {
-  "identifier" : "E6392CB6",
+  "identifier" : "CA2A9095",
   "nonRenewingSubscriptions" : [
 
   ],
@@ -24,7 +24,9 @@
     "_applicationInternalID" : "6503723392",
     "_developerTeamID" : "288XB3DN8J",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 739294456.74901903,
+    "_lastSynchronizedDate" : 739984589.46911502,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
     "_storeKitErrors" : [
       {
         "current" : null,

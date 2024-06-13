@@ -83,9 +83,11 @@ final class UserManager {
 //        let name = ""
 //        let names = ["Activity 1", "Activity 2", "Activity 3"]
 //        let documents = ["activity_1", "activity_2", "activity_3"]
+        let yesterdayDate = Date().addingTimeInterval(-24*60*60)
+        let timeStamp = Timestamp(date: yesterdayDate)
         var data: [String:Any] = [
-            "date_last_updated": Timestamp(),
-            "progress": 1
+            "date_last_updated": timeStamp,
+            "progress": 0
         ]
         
 //        for i in names.count {
@@ -100,10 +102,12 @@ final class UserManager {
     }
     
     func editActivity(user: DBUser, activity: String, name: String) async throws {
+        let yesterdayDate = Date().addingTimeInterval(-24*60*60)
+        let timeStamp = Timestamp(date: yesterdayDate)
         let data: [String:Any] = [
             "name": name,
-            "date_last_updated": Timestamp(),
-            "progress": 1
+            "date_last_updated": timeStamp,
+            "progress": 0
         ]
         try await userDocument(userId: user.userId).collection("activities").document(activity).setData(data, merge: false)
     }
@@ -137,12 +141,13 @@ final class UserManager {
         try await userDocument(userId: userId).getDocument(as: DBUser.self, decoder: decoder)
     }
     
-    func updateUserPremiumStatus(user: DBUser) async throws {
-        try userDocument(userId: user.userId).setData(from: user, merge: true, encoder: encoder)
-    }
+//    func updateUserPremiumStatus(user: DBUser) async throws {
+//        try userDocument(userId: user.userId).setData(from: user, merge: true, encoder: encoder)
+//    }
     
-    func purchasedPremium(user: DBUser) async throws {
-        try userDocument(userId: user.userId).setData(from: user, merge: true, encoder: encoder)
+    func purchasedPremium(userId: String) async throws {
+//        try userDocument(userId: user.userId).setData(from: user, merge: true, encoder: encoder)
+        try await userDocument(userId: userId).updateData(["is_premium": true])
     }
     
 //    func updateProgress(user: DBUser) async throws {

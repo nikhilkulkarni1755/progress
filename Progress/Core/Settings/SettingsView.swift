@@ -14,7 +14,9 @@ struct SettingsView: View {
     
     var body: some View {
         List {
-            
+//            Section(header: Text("")) {
+//                
+//            }
             Section(header: Text("Activities")) {
                 NavigationLink {
                     EditActivitiesView(showSignInView: $showSignInView)
@@ -35,16 +37,16 @@ struct SettingsView: View {
                     }
                 }
                 
-                Button("Reset Password") {
-                    Task {
-                        do {
-                            try await viewModel.resetPassword()
-                            print("Password Reset!")
-                        } catch {
-                            print(error)
-                        }
-                    }
-                }
+//                Button("Reset Password") {
+//                    Task {
+//                        do {
+//                            try await viewModel.resetPassword()
+//                            print("Password Reset!")
+//                        } catch {
+//                            print(error)
+//                        }
+//                    }
+//                }
             }
             
             

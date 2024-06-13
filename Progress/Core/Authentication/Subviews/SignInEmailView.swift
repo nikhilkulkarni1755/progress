@@ -52,6 +52,13 @@ struct SignInEmailView: View {
                     .background(Color.blue)
                     .cornerRadius(10)
             }
+            Button {
+                Task {
+                    try await viewModel.resetPassword()
+                }
+            } label: {
+                Text("Reset Password")
+            }
             
             Spacer()
         }

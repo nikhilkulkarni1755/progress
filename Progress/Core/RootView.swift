@@ -15,7 +15,8 @@ struct RootView: View {
     var body: some View {
         ZStack {
             NavigationStack {
-                ProfileView(showSignInView: $showSignInView).environmentObject(paymentManager)
+                ProfileView(showSignInView: $showSignInView)
+                    .environmentObject(paymentManager)
             }
         }
         .onAppear {
@@ -24,7 +25,8 @@ struct RootView: View {
         }
         .fullScreenCover(isPresented: $showSignInView) {
             NavigationStack {
-                AuthenticationView(showSignInView: $showSignInView).environmentObject(paymentManager)
+                AuthenticationView(showSignInView: $showSignInView)
+                    .environmentObject(paymentManager)
             }
         }
         

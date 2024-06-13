@@ -21,7 +21,8 @@ struct ProgressApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView().environmentObject(paymentManager)
+            RootView()
+                .environmentObject(paymentManager)
 //            NavigationStack {
 //                AuthenticationView()
 //            }

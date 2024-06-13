@@ -4,7 +4,7 @@
 //
 //  Created by Nikhil Kulkarni on 6/6/24.
 //
-
+//
 import Foundation
 import StoreKit
 
@@ -22,7 +22,8 @@ class PaymentManager: NSObject, ObservableObject {
     private var fetchedProducts = [SKProduct]()
     private var fetchCompletionHandler: FetchCompletionHandler?
     private var purchaseCompletionHandler: PurchaseCompletionHandler?
-    private var user: DBUser? = nil
+//    private var user: DBUser? = nil
+    private var userId: String? = nil
 
     private var completedPurchases = [String]() {
             didSet {
@@ -53,6 +54,7 @@ class PaymentManager: NSObject, ObservableObject {
         SKPaymentQueue.default().add(self)
     }
     
+    // we wrote this
     func isCompletedPurchasesEmpty() -> Bool {
         return self.completedPurchases.isEmpty
     }
@@ -108,8 +110,8 @@ extension PaymentManager {
         })
     }
         
-    func purchaseProduct(_ product: SKProduct) {
-//        self.user = user
+    func purchaseProduct(_ product: SKProduct, userId: String) {
+        self.userId = userId
         startObservingPaymentQueue()
         buy(product) {
             _ in
@@ -127,6 +129,9 @@ extension PaymentManager: SKPaymentTransactionObserver {
             case .purchased:
                 completedPurchases.append(transaction.payment.productIdentifier)
                 shouldFinishTransaction = true
+                Task {
+                    try await verifyAndComplete(transaction: transaction)
+                }
 //                isBuying = true
             case .restored:
                 completedPurchases.append(transaction.payment.productIdentifier)
@@ -153,5 +158,18 @@ extension PaymentManager: SKPaymentTransactionObserver {
 //                }
 //            }
         }
+    }
+}
+
+extension PaymentManager {
+    func verifyAndComplete(transaction: SKPaymentTransaction) async throws {
+        // purchasedPremium(DBUser) { }
+        
+//        self.user?.isPremium = true
+        guard self.userId != nil else { return }
+//        if let user = self.userId? {
+        try await UserManager.shared.purchasedPremium(userId: self.userId!)
+//        }
+        
     }
 }

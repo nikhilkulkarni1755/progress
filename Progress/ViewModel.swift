@@ -5,15 +5,15 @@
 //  Created by Nikhil Kulkarni on 4/8/24.
 //
 
-import Foundation
-import SwiftUI
+//import Foundation
+//import SwiftUI
 
 //struct Course: Codable, Hashable {
 //    let name: String
 //    let image: String
 //}
 
-class ViewModel: ObservableObject {
+//class ViewModel: ObservableObject {
 //    @Published var apiResponse: String?
 //    @Published var courses: [Course] = []
 //    
@@ -40,4 +40,4 @@ class ViewModel: ObservableObject {
 //        }
 //        task.resume()
 //    }
-}
+//}

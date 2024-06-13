@@ -53,6 +53,10 @@ class PaymentManager: NSObject, ObservableObject {
         SKPaymentQueue.default().add(self)
     }
     
+    func isCompletedPurchasesEmpty() -> Bool {
+        return self.completedPurchases.isEmpty
+    }
+    
     private func fetchProducts(_ completion: @escaping FetchCompletionHandler) {
         guard self.productsRequest == nil else { return }
         fetchCompletionHandler = completion
@@ -104,8 +108,8 @@ extension PaymentManager {
         })
     }
         
-    func purchaseProduct(_ product: SKProduct, user: DBUser?) {
-        self.user = user
+    func purchaseProduct(_ product: SKProduct) {
+//        self.user = user
         startObservingPaymentQueue()
         buy(product) {
             _ in
@@ -117,13 +121,13 @@ extension PaymentManager: SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
             var shouldFinishTransaction = false
-            var isBuying = false
+//            var isBuying = false
             switch transaction.transactionState {
                 
             case .purchased:
                 completedPurchases.append(transaction.payment.productIdentifier)
                 shouldFinishTransaction = true
-                isBuying = true
+//                isBuying = true
             case .restored:
                 completedPurchases.append(transaction.payment.productIdentifier)
                 shouldFinishTransaction = true

@@ -359,6 +359,14 @@ struct ProfileView: View {
                                         paymentManager.purchaseProduct(prod)
                                     }
                                     
+                                    if !paymentManager.isCompletedPurchasesEmpty() {
+                                        try await UserManager.shared.
+                                    }
+
+                                    
+//                                    if let check = 
+                                    
+                                    
                                 }
                             } label: {
                                 Text("Get Premium")
